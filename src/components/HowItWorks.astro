@@ -1,0 +1,98 @@
+---
+const steps = [
+  {
+    step: "01",
+    title: "Configure",
+    description:
+      "Define your agent's personality, model, tools, and channels through the web UI or API. Set system prompts, MCP servers, and environment variables.",
+    code: `{
+  "name": "research-bot",
+  "model": "claude-sonnet-4-5",
+  "channels": ["telegram", "discord"],
+  "tools": {
+    "browser": true,
+    "web_search": true,
+    "shell": true
+  }
+}`,
+  },
+  {
+    step: "02",
+    title: "Deploy",
+    description:
+      "Gate builds config.toml and workspace files, packs them into an archive, and uploads to S3. Your agent is ready to wake.",
+    code: `$ wireclaw deploy research-bot
+
+  Building config.toml...
+  Packing workspace archive...
+  Uploading to S3...
+
+  \u2713 Deployed workspace_abc123.tar.gz
+  \u2713 Agent ready for wake signal`,
+  },
+  {
+    step: "03",
+    title: "Communicate",
+    description:
+      "Send a message on any connected channel. The platform wakes the agent, hydrates its workspace, and the agent responds autonomously.",
+    code: `[telegram] @research-bot
+  > Find recent papers on RLHF
+
+[research-bot] Searching arxiv.org...
+  Found 12 papers from last 30 days.
+
+  1. "Direct Preference Optimization"
+     Score: 94/100 | Citations: 847
+  2. "Constitutional AI: Harmlessness"
+     Score: 91/100 | Citations: 523
+
+  Full analysis saved to memory.`,
+  },
+];
+---
+
+<section id="how-it-works" class="relative py-32">
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-wire-500/[0.02] to-transparent"></div>
+  <div class="relative max-w-7xl mx-auto px-6">
+    <div class="text-center mb-20" data-animate>
+      <span class="inline-block text-xs font-mono text-wire-400 tracking-widest uppercase mb-4">
+        Workflow
+      </span>
+      <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tight mb-5">
+        Three steps to autonomous
+      </h2>
+      <p class="text-text-secondary text-lg max-w-2xl mx-auto">
+        From configuration to conversation in under five minutes.
+      </p>
+    </div>
+
+    <div class="space-y-8">
+      {steps.map((step, i) => (
+        <div
+          class="grid lg:grid-cols-2 gap-8 items-center"
+          data-animate
+          data-delay={String(i + 1)}
+        >
+          <div class={i % 2 === 1 ? "lg:order-2" : ""}>
+            <div class="flex items-baseline gap-4 mb-4">
+              <span class="font-mono text-5xl font-bold text-wire-500/20">{step.step}</span>
+              <h3 class="font-display font-bold text-2xl">{step.title}</h3>
+            </div>
+            <p class="text-text-secondary leading-relaxed max-w-md">{step.description}</p>
+          </div>
+
+          <div class={`relative ${i % 2 === 1 ? "lg:order-1" : ""}`}>
+            <div class="rounded-xl border border-white/5 bg-surface overflow-hidden glow-wire">
+              <div class="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/5 bg-surface-raised">
+                <div class="w-2.5 h-2.5 rounded-full bg-red-500/60"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-green-500/60"></div>
+              </div>
+              <pre class="p-5 font-mono text-[12.5px] leading-6 text-text-secondary overflow-x-auto"><code set:text={step.code} /></pre>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
