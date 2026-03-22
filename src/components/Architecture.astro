@@ -1,111 +1,57 @@
 ---
-const layers = [
+const trustCards = [
   {
-    label: "Channels",
-    items: ["Telegram", "Discord", "Slack", "Webhooks"],
-    color: "wire",
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+    title: "Always on",
+    description: "Your agents run 24/7. When a message comes in, your agent is ready to respond instantly.",
   },
   {
-    label: "Ingestion",
-    items: ["IEG \u2014 Event Gateway", "Rate Limiting", "Tenant Resolution"],
-    color: "wire",
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>`,
+    title: "Scales with you",
+    description: "From one agent to hundreds. The platform handles the load &mdash; you focus on what your agents do.",
   },
   {
-    label: "Orchestration",
-    items: ["Gate \u2014 API Gateway", "Config Builder", "S3 Workspace", "Redis Sessions"],
-    color: "wire",
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>`,
+    title: "Secure by default",
+    description: "Authentication, rate limiting, and cost controls built in. Your agents stay within the limits you set.",
   },
   {
-    label: "Runtime",
-    items: ["Sidecar \u2014 Pod Manager", "Hydration / Dehydration", "Process Lifecycle"],
-    color: "claw",
-  },
-  {
-    label: "Agent",
-    items: ["RayCore \u2014 Agent Loop", "Tool Execution", "Memory (SQLite)", "Sulaert Router"],
-    color: "claw",
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>`,
+    title: "Transparent pricing",
+    description: "See exactly what each agent costs. Set daily and monthly budgets. No surprise bills.",
   },
 ];
 ---
 
 <section id="architecture" class="relative py-32">
   <div class="max-w-7xl mx-auto px-6">
-    <div class="text-center mb-20" data-animate>
+    <div class="text-center mb-16" data-animate>
       <span class="inline-block text-xs font-mono text-wire-400 tracking-widest uppercase mb-4">
-        Platform
+        Reliability
       </span>
       <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tight mb-5">
-        Built for production
+        We run the infrastructure
       </h2>
       <p class="text-text-secondary text-lg max-w-2xl mx-auto">
-        Five layers from channel message to autonomous agent action.
-        Every component is stateless, observable, and independently scalable.
+        You build agents. We keep them running, secure, and within budget.
       </p>
     </div>
 
-    <div class="max-w-4xl mx-auto" data-animate data-delay="2">
-      <div class="relative space-y-3">
-        {layers.map((layer, i) => (
-          <div class="relative group">
-            <!-- Connector line -->
-            {i < layers.length - 1 && (
-              <div class="absolute left-1/2 -bottom-3 w-px h-3 bg-gradient-to-b from-white/10 to-transparent z-10"></div>
-            )}
-
-            <div class="grid grid-cols-[120px_1fr] sm:grid-cols-[160px_1fr] gap-4 items-center">
-              <!-- Layer label -->
-              <div class="text-right">
-                <span class="text-xs font-mono text-text-muted uppercase tracking-wider">
-                  {layer.label}
-                </span>
-                <div class={`h-px mt-2 bg-gradient-to-l from-${layer.color === "claw" ? "claw-500/30" : "wire-500/30"} to-transparent`}></div>
-              </div>
-
-              <!-- Layer content -->
-              <div
-                class={`flex flex-wrap gap-2 p-4 rounded-xl border transition-all duration-300 ${
-                  layer.color === "claw"
-                    ? "border-claw-500/10 bg-claw-500/[0.03] hover:border-claw-500/20"
-                    : "border-wire-500/10 bg-wire-500/[0.03] hover:border-wire-500/20"
-                }`}
-              >
-                {layer.items.map((item) => (
-                  <span
-                    class={`inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-mono ${
-                      layer.color === "claw"
-                        ? "bg-claw-500/10 text-claw-400 border border-claw-500/15"
-                        : "bg-wire-500/10 text-wire-400 border border-wire-500/15"
-                    }`}
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
+    <!-- Trust cards -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {trustCards.map((card, i) => (
+        <div
+          class="group rounded-2xl border border-white/5 bg-surface-raised/50 hover:bg-surface-raised p-6 transition-all duration-300 hover:border-wire-500/20 hover:glow-wire"
+          data-animate
+          data-delay={String(i + 1)}
+        >
+          <div class="w-11 h-11 rounded-xl bg-wire-500/10 border border-wire-500/20 flex items-center justify-center text-wire-400 group-hover:bg-wire-500/15 transition-colors mb-4">
+            <Fragment set:html={card.icon} />
           </div>
-        ))}
-      </div>
-
-      <!-- Flow arrows -->
-      <div class="mt-12 flex items-center justify-center gap-6 text-text-muted text-xs font-mono" data-animate data-delay="3">
-        <span>Message in</span>
-        <svg class="w-4 h-4 text-wire-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-        <span>Route</span>
-        <svg class="w-4 h-4 text-wire-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-        <span>Wake</span>
-        <svg class="w-4 h-4 text-claw-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-        <span>Hydrate</span>
-        <svg class="w-4 h-4 text-claw-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-        <span>Act</span>
-      </div>
+          <h3 class="font-display font-semibold text-base mb-2">{card.title}</h3>
+          <p class="text-sm text-text-secondary leading-relaxed">{card.description}</p>
+        </div>
+      ))}
     </div>
   </div>
 </section>

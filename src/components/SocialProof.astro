@@ -1,0 +1,54 @@
+---
+const stats = [
+  { value: "25+", label: "Channel integrations" },
+  { value: "6", label: "Tool categories" },
+  { value: "Any", label: "LLM model" },
+  { value: "$0", label: "Monthly fees" },
+];
+
+const integrations = [
+  { name: "Telegram", letter: "T" },
+  { name: "Discord", letter: "D" },
+  { name: "Slack", letter: "S" },
+  { name: "Claude", letter: "C" },
+  { name: "GPT", letter: "G" },
+  { name: "Gemini", letter: "Gm" },
+  { name: "WhatsApp", letter: "W" },
+  { name: "GitHub", letter: "Gh" },
+];
+---
+
+<section class="relative py-16 border-t border-white/[0.03]">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Stats bar -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12" data-animate>
+      {stats.map((stat, i) => (
+        <div class="text-center" data-animate data-delay={String(i + 1)}>
+          <div class="font-display font-bold text-3xl sm:text-4xl text-gradient-wire mb-1">
+            {stat.value}
+          </div>
+          <div class="text-sm text-text-muted font-mono">
+            {stat.label}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Integration icon row -->
+    <div class="flex flex-wrap justify-center gap-4" data-animate data-delay="2">
+      {integrations.map((item) => (
+        <div class="group flex items-center gap-2 px-3 py-2 rounded-lg border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/10 transition-all duration-200">
+          <div class="w-6 h-6 rounded bg-white/5 flex items-center justify-center text-xs font-mono font-semibold text-text-muted group-hover:text-wire-400 transition-colors">
+            {item.letter}
+          </div>
+          <span class="text-xs text-text-muted group-hover:text-text-secondary transition-colors font-mono">
+            {item.name}
+          </span>
+        </div>
+      ))}
+      <div class="flex items-center px-3 py-2 text-xs text-text-muted font-mono">
+        and more...
+      </div>
+    </div>
+  </div>
+</section>

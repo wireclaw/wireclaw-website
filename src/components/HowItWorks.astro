@@ -1,54 +1,4 @@
 ---
-const steps = [
-  {
-    step: "01",
-    title: "Configure",
-    description:
-      "Define your agent's personality, model, tools, and channels through the web UI or API. Set system prompts, MCP servers, and environment variables.",
-    code: `{
-  "name": "research-bot",
-  "model": "claude-sonnet-4-5",
-  "channels": ["telegram", "discord"],
-  "tools": {
-    "browser": true,
-    "web_search": true,
-    "shell": true
-  }
-}`,
-  },
-  {
-    step: "02",
-    title: "Deploy",
-    description:
-      "Gate builds config.toml and workspace files, packs them into an archive, and uploads to S3. Your agent is ready to wake.",
-    code: `$ wireclaw deploy research-bot
-
-  Building config.toml...
-  Packing workspace archive...
-  Uploading to S3...
-
-  \u2713 Deployed workspace_abc123.tar.gz
-  \u2713 Agent ready for wake signal`,
-  },
-  {
-    step: "03",
-    title: "Communicate",
-    description:
-      "Send a message on any connected channel. The platform wakes the agent, hydrates its workspace, and the agent responds autonomously.",
-    code: `[telegram] @research-bot
-  > Find recent papers on RLHF
-
-[research-bot] Searching arxiv.org...
-  Found 12 papers from last 30 days.
-
-  1. "Direct Preference Optimization"
-     Score: 94/100 | Citations: 847
-  2. "Constitutional AI: Harmlessness"
-     Score: 91/100 | Citations: 523
-
-  Full analysis saved to memory.`,
-  },
-];
 ---
 
 <section id="how-it-works" class="relative py-32">
@@ -59,40 +9,171 @@ const steps = [
         Workflow
       </span>
       <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tight mb-5">
-        Three steps to autonomous
+        From idea to live agent in five minutes
       </h2>
       <p class="text-text-secondary text-lg max-w-2xl mx-auto">
-        From configuration to conversation in under five minutes.
+        Three steps. We handle everything else.
       </p>
     </div>
 
-    <div class="space-y-8">
-      {steps.map((step, i) => (
-        <div
-          class="grid lg:grid-cols-2 gap-8 items-center"
-          data-animate
-          data-delay={String(i + 1)}
-        >
-          <div class={i % 2 === 1 ? "lg:order-2" : ""}>
-            <div class="flex items-baseline gap-4 mb-4">
-              <span class="font-mono text-5xl font-bold text-wire-500/20">{step.step}</span>
-              <h3 class="font-display font-bold text-2xl">{step.title}</h3>
+    <!-- Timeline -->
+    <div class="relative max-w-5xl mx-auto">
+      <!-- Vertical timeline line (desktop only) -->
+      <div class="hidden lg:block absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-wire-500/30 via-wire-500/20 to-claw-500/30"></div>
+
+      <!-- Step 1: Configure -->
+      <div class="relative lg:pl-24 mb-16" data-animate data-delay="1">
+        <div class="hidden lg:flex absolute left-0 top-0 w-16 h-16 rounded-2xl bg-wire-500 items-center justify-center text-white font-display font-bold text-xl shadow-[0_0_30px_rgba(59,130,246,0.3)]">
+          01
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-8 items-start">
+          <div>
+            <div class="lg:hidden inline-flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-wire-500 flex items-center justify-center text-white font-display font-bold text-sm">01</div>
             </div>
-            <p class="text-text-secondary leading-relaxed max-w-md">{step.description}</p>
+            <h3 class="font-display font-bold text-2xl mb-3">Configure your agent</h3>
+            <p class="text-text-secondary leading-relaxed max-w-md mb-4">
+              Give your agent a personality, pick a model, connect channels, and choose what tools it can use. All through the web UI.
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs font-mono">
+              <span class="px-2 py-1 rounded bg-wire-500/10 text-wire-400">Personality</span>
+              <span class="px-2 py-1 rounded bg-wire-500/10 text-wire-400">Model</span>
+              <span class="px-2 py-1 rounded bg-wire-500/10 text-wire-400">Channels</span>
+              <span class="px-2 py-1 rounded bg-wire-500/10 text-wire-400">Tools</span>
+            </div>
           </div>
 
-          <div class={`relative ${i % 2 === 1 ? "lg:order-1" : ""}`}>
-            <div class="rounded-xl border border-white/5 bg-surface overflow-hidden glow-wire">
-              <div class="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/5 bg-surface-raised">
-                <div class="w-2.5 h-2.5 rounded-full bg-red-500/60"></div>
-                <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></div>
-                <div class="w-2.5 h-2.5 rounded-full bg-green-500/60"></div>
+          <!-- Config UI mockup -->
+          <div class="rounded-xl border border-white/5 bg-surface overflow-hidden glow-wire">
+            <div class="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/5 bg-surface-raised">
+              <div class="w-2.5 h-2.5 rounded-full bg-red-500/60"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-green-500/60"></div>
+              <span class="ml-2 text-[11px] text-text-muted font-mono">openclaw &mdash; new agent</span>
+            </div>
+            <div class="p-5 space-y-3 font-mono text-[12px]">
+              <div class="flex items-center gap-3">
+                <span class="text-text-muted w-20">Name</span>
+                <span class="px-3 py-1.5 rounded-lg bg-surface-raised border border-white/5 text-text-primary flex-1">research-bot</span>
               </div>
-              <pre class="p-5 font-mono text-[12.5px] leading-6 text-text-secondary overflow-x-auto"><code set:text={step.code} /></pre>
+              <div class="flex items-center gap-3">
+                <span class="text-text-muted w-20">Model</span>
+                <span class="px-3 py-1.5 rounded-lg bg-surface-raised border border-white/5 text-wire-400 flex-1">claude-sonnet-4-5</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-text-muted w-20">Channels</span>
+                <div class="flex gap-1.5 flex-1">
+                  <span class="px-2 py-1 rounded bg-sky-500/10 border border-sky-500/15 text-sky-400 text-[11px]">Telegram</span>
+                  <span class="px-2 py-1 rounded bg-indigo-500/10 border border-indigo-500/15 text-indigo-400 text-[11px]">Discord</span>
+                  <span class="px-2 py-1 rounded bg-purple-500/10 border border-purple-500/15 text-purple-400 text-[11px]">Slack</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-text-muted w-20">Tools</span>
+                <div class="flex gap-1.5 flex-1">
+                  <span class="px-2 py-1 rounded bg-claw-500/10 border border-claw-500/15 text-claw-400 text-[11px]">browser</span>
+                  <span class="px-2 py-1 rounded bg-claw-500/10 border border-claw-500/15 text-claw-400 text-[11px]">web_search</span>
+                  <span class="px-2 py-1 rounded bg-claw-500/10 border border-claw-500/15 text-claw-400 text-[11px]">shell</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      ))}
+      </div>
+
+      <!-- Step 2: Deploy -->
+      <div class="relative lg:pl-24 mb-16" data-animate data-delay="2">
+        <div class="hidden lg:flex absolute left-0 top-0 w-16 h-16 rounded-2xl bg-wire-600 items-center justify-center text-white font-display font-bold text-xl shadow-[0_0_30px_rgba(37,99,235,0.3)]">
+          02
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-8 items-start">
+          <div>
+            <div class="lg:hidden inline-flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-wire-600 flex items-center justify-center text-white font-display font-bold text-sm">02</div>
+            </div>
+            <h3 class="font-display font-bold text-2xl mb-3">Hit deploy</h3>
+            <p class="text-text-secondary leading-relaxed max-w-md mb-4">
+              One click. Your agent goes live across all connected channels. We handle the infrastructure &mdash; you don't need to think about it.
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs font-mono">
+              <span class="px-2 py-1 rounded bg-green-500/10 text-green-400">Instant</span>
+              <span class="px-2 py-1 rounded bg-green-500/10 text-green-400">Zero config</span>
+            </div>
+          </div>
+
+          <!-- Deploy terminal block -->
+          <div class="rounded-xl border border-white/5 bg-surface overflow-hidden glow-wire">
+            <div class="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/5 bg-surface-raised">
+              <div class="w-2.5 h-2.5 rounded-full bg-red-500/60"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-green-500/60"></div>
+              <span class="ml-2 text-[11px] text-text-muted font-mono">terminal</span>
+            </div>
+            <pre class="p-5 font-mono text-[12px] leading-6 overflow-x-auto"><code><span class="text-wire-400">$</span> <span class="text-text-primary">openclaw deploy research-bot</span>
+
+<span class="text-text-muted">  Connecting channels...</span>
+<span class="text-text-muted">  Starting agent...</span>
+
+<span class="text-green-400">  ✓ Agent is live on 3 channels</span>
+<span class="text-green-400">  ✓ Ready to receive messages</span></code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Communicate -->
+      <div class="relative lg:pl-24" data-animate data-delay="3">
+        <div class="hidden lg:flex absolute left-0 top-0 w-16 h-16 rounded-2xl bg-claw-500 items-center justify-center text-white font-display font-bold text-xl shadow-[0_0_30px_rgba(245,158,11,0.3)]">
+          03
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-8 items-start">
+          <div>
+            <div class="lg:hidden inline-flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-claw-500 flex items-center justify-center text-white font-display font-bold text-sm">03</div>
+            </div>
+            <h3 class="font-display font-bold text-2xl mb-3">Your agent is live</h3>
+            <p class="text-text-secondary leading-relaxed max-w-md mb-4">
+              Send a message on any connected channel. Your agent responds, uses tools, remembers context &mdash; fully autonomous.
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs font-mono">
+              <span class="px-2 py-1 rounded bg-claw-500/10 text-claw-400">Always on</span>
+              <span class="px-2 py-1 rounded bg-claw-500/10 text-claw-400">Remembers everything</span>
+            </div>
+          </div>
+
+          <!-- Chat-style mockup -->
+          <div class="rounded-xl border border-white/5 bg-surface overflow-hidden glow-wire">
+            <div class="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/5 bg-surface-raised">
+              <div class="w-2.5 h-2.5 rounded-full bg-red-500/60"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-green-500/60"></div>
+              <span class="ml-2 text-[11px] text-text-muted font-mono">telegram &mdash; research-bot</span>
+            </div>
+            <div class="p-5 space-y-3 min-h-[200px]">
+              <div class="flex justify-end">
+                <div class="max-w-[75%] px-4 py-2.5 rounded-2xl rounded-tr-sm bg-wire-500/20 border border-wire-500/10">
+                  <p class="text-sm text-text-primary">Find recent papers on RLHF</p>
+                </div>
+              </div>
+              <div class="flex justify-start">
+                <div class="max-w-[85%] px-4 py-2.5 rounded-2xl rounded-tl-sm bg-surface-raised border border-white/5">
+                  <p class="text-sm text-text-secondary leading-relaxed">
+                    Found 12 papers from last 30 days. Top result:
+                  </p>
+                  <div class="mt-2 px-3 py-2 rounded-lg bg-surface border border-white/5 font-mono text-[11px]">
+                    <div class="text-text-primary">"Direct Preference Optimization"</div>
+                    <div class="text-text-muted">Score: 94/100 &middot; Citations: 847</div>
+                  </div>
+                  <p class="text-sm text-text-muted mt-2">Full analysis saved to memory.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>

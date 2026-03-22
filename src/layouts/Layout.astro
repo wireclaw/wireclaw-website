@@ -8,8 +8,11 @@ interface Props {
 
 const {
   title = "Wireclaw - Autonomous AI Agent Platform",
-  description = "Deploy, orchestrate, and manage long-running AI agents across messaging channels. Persistent memory, autonomous tools, zero-downtime deploys.",
+  description = "Deploy autonomous AI agents to 25+ messaging channels. Persistent memory, autonomous tools, any LLM model. Production-ready in 5 minutes.",
 } = Astro.props;
+
+const ogImage = "/og-image.png";
+const siteUrl = "https://wireclaw.com";
 ---
 
 <!doctype html>
@@ -21,6 +24,20 @@ const {
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${siteUrl}${ogImage}`} />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:site_name" content="Wireclaw" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -29,6 +46,31 @@ const {
     />
 
     <title>{title}</title>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Wireclaw",
+      "applicationCategory": "DeveloperApplication",
+      "description": description,
+      "operatingSystem": "Cloud",
+      "offers": [
+        {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "name": "Starter"
+        },
+        {
+          "@type": "Offer",
+          "price": "49",
+          "priceCurrency": "USD",
+          "name": "Pro",
+          "billingIncrement": "monthly"
+        }
+      ]
+    })} />
   </head>
   <body class="min-h-screen bg-navy-950 text-text-primary antialiased">
     <slot />

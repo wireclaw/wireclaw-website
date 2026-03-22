@@ -1,0 +1,110 @@
+---
+const features = [
+  {
+    feature: "Setup",
+    wireclaw: "Managed — configure and go",
+    langchain: "Build it yourself",
+    openai: "API-only, no hosting",
+    crewai: "Build it yourself",
+    botpress: "Managed",
+  },
+  {
+    feature: "Memory",
+    wireclaw: "Persistent across sessions",
+    langchain: "Build it yourself",
+    openai: "Thread-based (limited)",
+    crewai: "In-process only",
+    botpress: "Conversation variables",
+  },
+  {
+    feature: "Channels",
+    wireclaw: "25+ native integrations",
+    langchain: "Build it yourself",
+    openai: "API only",
+    crewai: "None",
+    botpress: "Web + WhatsApp",
+  },
+  {
+    feature: "Models",
+    wireclaw: "Any — Claude, GPT, Gemini, Llama",
+    langchain: "Multi-provider",
+    openai: "OpenAI only",
+    crewai: "Multi-provider",
+    botpress: "Multi-provider",
+  },
+  {
+    feature: "Tools",
+    wireclaw: "Browser, shell, search, MCP, files",
+    langchain: "Extensive (DIY setup)",
+    openai: "Code interpreter",
+    crewai: "Python-based",
+    botpress: "Limited",
+  },
+  {
+    feature: "Pricing",
+    wireclaw: "Pay as you go, no subscription",
+    langchain: "Free (infra costs on you)",
+    openai: "Per-token",
+    crewai: "Free (infra costs on you)",
+    botpress: "Monthly subscription",
+  },
+];
+
+const competitors = ["LangChain", "OpenAI Assistants", "CrewAI", "Botpress"];
+---
+
+<section class="relative py-32">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16" data-animate>
+      <span class="inline-block text-xs font-mono text-wire-400 tracking-widest uppercase mb-4">
+        Comparison
+      </span>
+      <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tight mb-5">
+        How Openclaw compares
+      </h2>
+      <p class="text-text-secondary text-lg max-w-2xl mx-auto">
+        Managed agents with no subscription. We handle the infrastructure so you don't have to.
+      </p>
+    </div>
+
+    <!-- Comparison table -->
+    <div class="max-w-6xl mx-auto overflow-x-auto scroll-fade-x" data-animate data-delay="1">
+      <table class="w-full min-w-[700px] border-collapse">
+        <thead>
+          <tr class="border-b border-white/10">
+            <th class="text-left py-4 px-4 text-sm font-mono text-text-muted font-normal w-[120px]">
+            </th>
+            <th class="text-left py-4 px-4 text-sm font-semibold text-wire-400 border-x border-wire-500/10 bg-wire-500/[0.03]">
+              Openclaw
+            </th>
+            {competitors.map((name) => (
+              <th class="text-left py-4 px-4 text-sm font-mono text-text-muted font-normal">
+                {name}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {features.map((row, i) => (
+            <tr class={`border-b border-white/5 ${i % 2 === 0 ? 'bg-white/[0.01]' : ''}`}>
+              <td class="py-3.5 px-4 text-sm font-mono text-text-secondary">
+                {row.feature}
+              </td>
+              <td class="py-3.5 px-4 text-sm text-wire-400 font-medium border-x border-wire-500/10 bg-wire-500/[0.03]">
+                {row.wireclaw}
+              </td>
+              <td class="py-3.5 px-4 text-sm text-text-muted">{row.langchain}</td>
+              <td class="py-3.5 px-4 text-sm text-text-muted">{row.openai}</td>
+              <td class="py-3.5 px-4 text-sm text-text-muted">{row.crewai}</td>
+              <td class="py-3.5 px-4 text-sm text-text-muted">{row.botpress}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="text-center text-xs text-text-muted mt-6 font-mono" data-animate data-delay="2">
+      Based on publicly available features as of March 2026.
+    </p>
+  </div>
+</section>

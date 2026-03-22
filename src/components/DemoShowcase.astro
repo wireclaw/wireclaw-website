@@ -1,0 +1,116 @@
+---
+const useCases = [
+  {
+    title: "Research Agent",
+    description: "Monitors sources, summarizes findings, posts to Slack",
+    config: {
+      model: "claude-sonnet-4-5",
+      channels: ["slack", "email"],
+      tools: ["web_search", "browser", "pdf_read"],
+    },
+    interaction: [
+      { role: "agent", text: "Found 12 new papers on RLHF from the last 7 days." },
+      { role: "agent", text: 'Top result: "Direct Preference Optimization"\nScore: 94/100 | Citations: 847' },
+      { role: "agent", text: "Summary posted to #research-updates. Full analysis saved to memory." },
+    ],
+  },
+  {
+    title: "Support Agent",
+    description: "Answers customer questions using your docs and tools",
+    config: {
+      model: "gemini-3-flash",
+      channels: ["telegram", "discord"],
+      tools: ["web_fetch", "mcp:docs-db"],
+    },
+    interaction: [
+      { role: "user", text: "How do I set up webhook authentication?" },
+      { role: "agent", text: "To set up webhook authentication, add a signing secret in your channel config:" },
+      { role: "agent", text: 'webhook_secret = "whsec_..."\n\nAll incoming requests will be verified. See docs for details.' },
+    ],
+  },
+  {
+    title: "DevOps Agent",
+    description: "Monitors GitHub issues, runs diagnostics, updates the team",
+    config: {
+      model: "claude-opus-4-6",
+      channels: ["github", "slack"],
+      tools: ["shell", "http_request", "browser"],
+    },
+    interaction: [
+      { role: "agent", text: "New issue #847: API timeout on /users endpoint" },
+      { role: "agent", text: "Running diagnostics...\nDB connection pool: 98% utilized\nP99 latency: 4.2s (threshold: 1s)" },
+      { role: "agent", text: "Root cause identified. Posted fix suggestion to #847 and alerted #oncall." },
+    ],
+  },
+];
+---
+
+<section id="demo" class="relative py-32">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16" data-animate>
+      <span class="inline-block text-xs font-mono text-wire-400 tracking-widest uppercase mb-4">
+        Use cases
+      </span>
+      <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tight mb-5">
+        See it in action
+      </h2>
+      <p class="text-text-secondary text-lg max-w-2xl mx-auto">
+        Real agents, real workflows. Configure once &mdash; your agent handles the rest.
+      </p>
+    </div>
+
+    <!-- Use case cards -->
+    <div class="grid md:grid-cols-3 gap-5">
+      {useCases.map((uc, i) => (
+        <div
+          class="group rounded-2xl border border-white/5 bg-surface overflow-hidden hover:border-wire-500/20 transition-all duration-300 hover:glow-wire"
+          data-animate
+          data-delay={String(i + 1)}
+        >
+          <!-- Terminal titlebar -->
+          <div class="flex items-center gap-2 px-4 py-2.5 border-b border-white/5 bg-surface-raised">
+            <div class="flex gap-1.5">
+              <div class="w-2 h-2 rounded-full bg-red-500/60"></div>
+              <div class="w-2 h-2 rounded-full bg-yellow-500/60"></div>
+              <div class="w-2 h-2 rounded-full bg-green-500/60"></div>
+            </div>
+            <span class="ml-1 text-xs text-text-muted font-mono">{uc.title.toLowerCase().replace(/\s/g, '-')}</span>
+          </div>
+
+          <!-- Config section -->
+          <div class="px-5 pt-4 pb-3 border-b border-white/5">
+            <div class="text-sm font-display font-semibold mb-1">{uc.title}</div>
+            <div class="text-xs text-text-muted mb-3">{uc.description}</div>
+            <div class="space-y-1 font-mono text-[11px]">
+              <div>
+                <span class="text-text-muted">model:</span>
+                <span class="text-wire-400 ml-1">{uc.config.model}</span>
+              </div>
+              <div>
+                <span class="text-text-muted">channels:</span>
+                <span class="text-claw-400 ml-1">{uc.config.channels.join(", ")}</span>
+              </div>
+              <div>
+                <span class="text-text-muted">tools:</span>
+                <span class="text-claw-400 ml-1">{uc.config.tools.join(", ")}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interaction -->
+          <div class="px-5 py-4 space-y-3 font-mono text-[11px] leading-5 min-h-[180px] relative scanline">
+            {uc.interaction.map((msg) => (
+              <div class={msg.role === "user" ? "text-text-primary" : "text-text-muted"}>
+                <span class={msg.role === "user" ? "text-green-400" : "text-wire-400"}>
+                  {msg.role === "user" ? ">" : "$"}
+                </span>
+                {" "}
+                <span class="whitespace-pre-line">{msg.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
