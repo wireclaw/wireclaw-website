@@ -8,7 +8,7 @@ interface Props {
 
 const {
   title = "Wireclaw - Autonomous AI Agent Platform",
-  description = "Deploy autonomous AI agents to 25+ messaging channels. Persistent memory, autonomous tools, any LLM model. Production-ready in 5 minutes.",
+  description = "Deploy autonomous AI agents to 30+ messaging channels. Persistent memory, autonomous tools, any LLM model. Production-ready in 5 minutes.",
 } = Astro.props;
 
 const ogImage = "/og-image.png";
@@ -55,21 +55,13 @@ const siteUrl = "https://wireclaw.com";
       "applicationCategory": "DeveloperApplication",
       "description": description,
       "operatingSystem": "Cloud",
-      "offers": [
-        {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD",
-          "name": "Starter"
-        },
-        {
-          "@type": "Offer",
-          "price": "49",
-          "priceCurrency": "USD",
-          "name": "Pro",
-          "billingIncrement": "monthly"
-        }
-      ]
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "name": "Pay as you go",
+        "description": "Free to start, no credit card required. Pay only for compute."
+      }
     })} />
   </head>
   <body class="min-h-screen bg-navy-950 text-text-primary antialiased">
