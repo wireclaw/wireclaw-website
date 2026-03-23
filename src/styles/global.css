@@ -17,7 +17,7 @@
   --color-surface-overlay: #1F2937;
   --color-text-primary: #F1F5F9;
   --color-text-secondary: #94A3B8;
-  --color-text-muted: #64748B;
+  --color-text-muted: #8494B2;
 
   --font-display: "Instrument Sans", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
@@ -46,7 +46,7 @@
 
 @layer utilities {
   .text-gradient-wire {
-    background: linear-gradient(135deg, var(--color-wire-400), var(--color-wire-500), var(--color-claw-400));
+    background: linear-gradient(135deg, var(--color-wire-500), var(--color-wire-400), var(--color-wire-500));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

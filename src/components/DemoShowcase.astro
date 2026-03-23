@@ -16,7 +16,7 @@ const useCases = [
   },
   {
     title: "Support Agent",
-    description: "Answers customer questions using your docs and tools",
+    description: "Answers customer questions using your docs and knowledge base",
     config: {
       model: "gemini-3-flash",
       channels: ["telegram", "discord"],
@@ -24,8 +24,8 @@ const useCases = [
     },
     interaction: [
       { role: "user", text: "How do I set up webhook authentication?" },
-      { role: "agent", text: "To set up webhook authentication, add a signing secret in your channel config:" },
-      { role: "agent", text: 'webhook_secret = "whsec_..."\n\nAll incoming requests will be verified. See docs for details.' },
+      { role: "agent", text: "Add a signing secret in your channel config. All incoming requests will be verified against this signature." },
+      { role: "agent", text: "I've also found 3 related articles in your docs. Want me to send them?" },
     ],
   },
   {
@@ -40,6 +40,48 @@ const useCases = [
       { role: "agent", text: "New issue #847: API timeout on /users endpoint" },
       { role: "agent", text: "Running diagnostics...\nDB connection pool: 98% utilized\nP99 latency: 4.2s (threshold: 1s)" },
       { role: "agent", text: "Root cause identified. Posted fix suggestion to #847 and alerted #oncall." },
+    ],
+  },
+  {
+    title: "Sales Assistant",
+    description: "Qualifies leads and answers product questions across channels",
+    config: {
+      model: "claude-sonnet-4-5",
+      channels: ["whatsapp", "telegram", "email"],
+      tools: ["web_fetch", "mcp:crm"],
+    },
+    interaction: [
+      { role: "user", text: "What's your pricing for a team of 20?" },
+      { role: "agent", text: "We're pay-as-you-go — no per-seat fees. Your team of 20 would share agent resources. Typical teams this size spend $30–80/month." },
+      { role: "agent", text: "Want me to set up a quick demo call with the team?" },
+    ],
+  },
+  {
+    title: "Content Monitor",
+    description: "Watches social media and news for brand mentions",
+    config: {
+      model: "gemini-3-flash",
+      channels: ["slack", "discord"],
+      tools: ["web_search", "browser", "http_request"],
+    },
+    interaction: [
+      { role: "agent", text: "3 new mentions of your brand in the last hour." },
+      { role: "agent", text: '1. Hacker News — "Wireclaw review" (142 points)\n2. Reddit r/AI — neutral discussion\n3. Twitter — positive review by @dev_tools' },
+      { role: "agent", text: "HN thread is gaining traction. Summary posted to #marketing." },
+    ],
+  },
+  {
+    title: "Data Pipeline Agent",
+    description: "Runs scheduled data jobs, reports failures, fixes simple issues",
+    config: {
+      model: "claude-sonnet-4-5",
+      channels: ["slack", "email"],
+      tools: ["shell", "http_request", "mcp:postgres"],
+    },
+    interaction: [
+      { role: "agent", text: "Daily ETL job completed. 847K rows processed in 3m 12s." },
+      { role: "agent", text: "Warning: 23 rows failed validation in source_events table. Schema mismatch on 'timestamp' field." },
+      { role: "agent", text: "Auto-fixed by casting to UTC. Retried successfully. Report sent to #data-eng." },
     ],
   },
 ];
@@ -59,15 +101,15 @@ const useCases = [
       </p>
     </div>
 
-    <!-- Use case cards -->
-    <div class="grid md:grid-cols-3 gap-5">
+    <!-- Use case cards — 2x3 grid -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
       {useCases.map((uc, i) => (
         <div
           class="group rounded-2xl border border-white/5 bg-surface overflow-hidden hover:border-wire-500/20 transition-all duration-300 hover:glow-wire"
           data-animate
-          data-delay={String(i + 1)}
+          data-delay={String((i % 3) + 1)}
         >
-          <!-- Terminal titlebar -->
+          <!-- Card titlebar -->
           <div class="flex items-center gap-2 px-4 py-2.5 border-b border-white/5 bg-surface-raised">
             <div class="flex gap-1.5">
               <div class="w-2 h-2 rounded-full bg-red-500/60"></div>
@@ -79,28 +121,28 @@ const useCases = [
 
           <!-- Config section -->
           <div class="px-5 pt-4 pb-3 border-b border-white/5">
-            <div class="text-sm font-display font-semibold mb-1">{uc.title}</div>
-            <div class="text-xs text-text-muted mb-3">{uc.description}</div>
+            <div class="text-sm font-display font-semibold text-text-primary mb-1">{uc.title}</div>
+            <div class="text-xs text-text-secondary mb-3">{uc.description}</div>
             <div class="space-y-1 font-mono text-[11px]">
               <div>
-                <span class="text-text-muted">model:</span>
+                <span class="text-text-secondary">model:</span>
                 <span class="text-wire-400 ml-1">{uc.config.model}</span>
               </div>
               <div>
-                <span class="text-text-muted">channels:</span>
+                <span class="text-text-secondary">channels:</span>
                 <span class="text-claw-400 ml-1">{uc.config.channels.join(", ")}</span>
               </div>
               <div>
-                <span class="text-text-muted">tools:</span>
+                <span class="text-text-secondary">tools:</span>
                 <span class="text-claw-400 ml-1">{uc.config.tools.join(", ")}</span>
               </div>
             </div>
           </div>
 
           <!-- Interaction -->
-          <div class="px-5 py-4 space-y-3 font-mono text-[11px] leading-5 min-h-[180px] relative scanline">
+          <div class="px-5 py-4 space-y-3 font-mono text-[11px] leading-5 min-h-[160px] relative scanline">
             {uc.interaction.map((msg) => (
-              <div class={msg.role === "user" ? "text-text-primary" : "text-text-muted"}>
+              <div class={msg.role === "user" ? "text-text-primary" : "text-text-secondary"}>
                 <span class={msg.role === "user" ? "text-green-400" : "text-wire-400"}>
                   {msg.role === "user" ? ">" : "$"}
                 </span>

@@ -34,7 +34,7 @@
             </div>
             <h3 class="font-display font-bold text-2xl mb-3">Configure your agent</h3>
             <p class="text-text-secondary leading-relaxed max-w-md mb-4">
-              Give your agent a personality, pick a model, connect channels, and choose what tools it can use. All through the web UI.
+              Give your agent a personality, pick a model, connect channels, and choose tools. All through the web dashboard.
             </p>
             <div class="flex flex-wrap gap-2 text-xs font-mono">
               <span class="px-2 py-1 rounded bg-wire-500/10 text-wire-400">Personality</span>
@@ -44,13 +44,13 @@
             </div>
           </div>
 
-          <!-- Config UI mockup -->
+          <!-- Web UI mockup -->
           <div class="rounded-xl border border-white/5 bg-surface overflow-hidden glow-wire">
             <div class="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/5 bg-surface-raised">
               <div class="w-2.5 h-2.5 rounded-full bg-red-500/60"></div>
               <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></div>
               <div class="w-2.5 h-2.5 rounded-full bg-green-500/60"></div>
-              <span class="ml-2 text-[11px] text-text-muted font-mono">openclaw &mdash; new agent</span>
+              <span class="ml-2 text-[11px] text-text-muted font-mono">wireclaw &mdash; new agent</span>
             </div>
             <div class="p-5 space-y-3 font-mono text-[12px]">
               <div class="flex items-center gap-3">
@@ -98,26 +98,48 @@
               One click. Your agent goes live across all connected channels. We handle the infrastructure &mdash; you don't need to think about it.
             </p>
             <div class="flex flex-wrap gap-2 text-xs font-mono">
+              <span class="px-2 py-1 rounded bg-green-500/10 text-green-400">One click</span>
               <span class="px-2 py-1 rounded bg-green-500/10 text-green-400">Instant</span>
-              <span class="px-2 py-1 rounded bg-green-500/10 text-green-400">Zero config</span>
             </div>
           </div>
 
-          <!-- Deploy terminal block -->
+          <!-- Deploy UI mockup -->
           <div class="rounded-xl border border-white/5 bg-surface overflow-hidden glow-wire">
             <div class="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/5 bg-surface-raised">
               <div class="w-2.5 h-2.5 rounded-full bg-red-500/60"></div>
               <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></div>
               <div class="w-2.5 h-2.5 rounded-full bg-green-500/60"></div>
-              <span class="ml-2 text-[11px] text-text-muted font-mono">terminal</span>
+              <span class="ml-2 text-[11px] text-text-muted font-mono">wireclaw &mdash; research-bot</span>
             </div>
-            <pre class="p-5 font-mono text-[12px] leading-6 overflow-x-auto"><code><span class="text-wire-400">$</span> <span class="text-text-primary">openclaw deploy research-bot</span>
-
-<span class="text-text-muted">  Connecting channels...</span>
-<span class="text-text-muted">  Starting agent...</span>
-
-<span class="text-green-400">  ✓ Agent is live on 3 channels</span>
-<span class="text-green-400">  ✓ Ready to receive messages</span></code></pre>
+            <div class="p-5 space-y-4">
+              <!-- Agent status -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <div class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></div>
+                  <span class="text-sm font-mono text-green-400">Agent is live</span>
+                </div>
+                <span class="text-xs font-mono text-text-muted">Just now</span>
+              </div>
+              <!-- Connected channels -->
+              <div class="space-y-2">
+                <div class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-raised border border-white/5">
+                  <svg class="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+                  <span class="text-xs font-mono text-text-secondary">Telegram</span>
+                  <span class="text-[10px] font-mono text-green-400 ml-auto">connected</span>
+                </div>
+                <div class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-raised border border-white/5">
+                  <svg class="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+                  <span class="text-xs font-mono text-text-secondary">Discord</span>
+                  <span class="text-[10px] font-mono text-green-400 ml-auto">connected</span>
+                </div>
+                <div class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-raised border border-white/5">
+                  <svg class="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+                  <span class="text-xs font-mono text-text-secondary">Slack</span>
+                  <span class="text-[10px] font-mono text-green-400 ml-auto">connected</span>
+                </div>
+              </div>
+              <div class="text-xs text-text-muted font-mono text-center">Ready to receive messages</div>
+            </div>
           </div>
         </div>
       </div>
