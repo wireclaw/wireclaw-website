@@ -1,0 +1,213 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout title="Terms of Service — Wireclaw" description="Terms of Service for the Wireclaw autonomous AI agent platform.">
+  <Navbar />
+  <main class="pt-32 pb-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="font-display text-4xl font-bold tracking-tight mb-4">Terms of Service</h1>
+      <p class="text-text-muted text-sm mb-12">Last updated: March 23, 2026</p>
+
+      <div class="space-y-10 text-text-secondary leading-relaxed">
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">1. Acceptance of Terms</h2>
+          <p>
+            By accessing or using the Wireclaw platform ("Service"), operated by Synecto LLC ("Company", "we", "us", "our"),
+            you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service.
+          </p>
+          <p class="mt-3">
+            We may update these Terms from time to time. Continued use of the Service after changes constitutes acceptance
+            of the revised Terms. We will notify you of material changes via email or through the Service.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">2. Description of Service</h2>
+          <p>
+            Wireclaw is an autonomous AI agent platform that allows you to deploy, orchestrate, and manage long-running AI agents
+            across messaging channels (including but not limited to Telegram, Discord, Slack, WhatsApp, and email).
+            The Service provides:
+          </p>
+          <ul class="list-disc list-inside mt-3 space-y-1.5 text-text-secondary">
+            <li>Agent configuration and deployment through a web interface</li>
+            <li>Routing of requests to third-party large language model (LLM) providers</li>
+            <li>Autonomous tool execution (browser, shell, web search, HTTP requests, file operations)</li>
+            <li>Persistent agent memory and workspace storage</li>
+            <li>Integration with messaging channels and external APIs</li>
+            <li>MCP (Model Context Protocol) server support</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">3. Account Registration</h2>
+          <p>
+            To use the Service, you must create an account. Authentication is provided through Firebase Authentication.
+            You are responsible for maintaining the confidentiality of your account credentials and for all activities
+            that occur under your account. You must provide accurate and complete information during registration
+            and keep your account information up to date.
+          </p>
+          <p class="mt-3">
+            You must be at least 18 years old to create an account and use the Service.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">4. Billing & Payment</h2>
+          <p>
+            The Service operates on a pay-as-you-go model. There are no monthly subscriptions or recurring fees.
+          </p>
+          <ul class="list-disc list-inside mt-3 space-y-1.5 text-text-secondary">
+            <li>New accounts receive a welcome credit balance upon registration.</li>
+            <li>You are charged for actual usage: LLM token consumption and tool execution compute time.</li>
+            <li>You may add credits to your account balance at any time.</li>
+            <li>You may set daily and monthly spending limits per agent.</li>
+            <li>When your balance is depleted, active agents will be gracefully paused. You may resume them by adding credits.</li>
+            <li>Credits are non-refundable except as required by applicable law.</li>
+          </ul>
+          <p class="mt-3">
+            Pricing details and current rates are available on the Service's pricing page. We may adjust pricing
+            with 30 days' notice.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">5. Acceptable Use</h2>
+          <p>You agree not to use the Service to:</p>
+          <ul class="list-disc list-inside mt-3 space-y-1.5 text-text-secondary">
+            <li>Violate any applicable laws or regulations</li>
+            <li>Generate, distribute, or facilitate illegal, harmful, or abusive content</li>
+            <li>Harass, threaten, or impersonate others</li>
+            <li>Distribute malware, spam, or conduct phishing attacks</li>
+            <li>Attempt to circumvent rate limits, cost controls, or security measures</li>
+            <li>Abuse compute resources, including cryptocurrency mining or denial-of-service activities</li>
+            <li>Interfere with or disrupt the Service or its infrastructure</li>
+            <li>Access or attempt to access other users' accounts, agents, or data</li>
+            <li>Reverse-engineer, decompile, or disassemble any part of the Service</li>
+          </ul>
+          <p class="mt-3">
+            We reserve the right to suspend or terminate accounts that violate these terms, with or without notice,
+            depending on the severity of the violation.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">6. Intellectual Property</h2>
+          <p>
+            The Service, including its software, design, branding, and documentation, is the intellectual property
+            of Synecto LLC and is protected by applicable intellectual property laws. These Terms do not grant you
+            any rights to our trademarks, logos, or brand features.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">7. Your Content & Agent Data</h2>
+          <p>
+            You retain ownership of all content you create through the Service, including agent configurations,
+            workspace files, system prompts, memory data, and any outputs generated by your agents ("Your Content").
+          </p>
+          <p class="mt-3">
+            By using the Service, you grant us a limited license to process, store, and transmit Your Content
+            solely for the purpose of providing and improving the Service. We do not claim ownership over Your Content
+            and will not use it for training AI models.
+          </p>
+          <p class="mt-3">
+            You are responsible for the content your agents generate and the actions they perform. AI-generated
+            outputs may be inaccurate, incomplete, or inappropriate. You should review agent outputs before
+            relying on them for critical decisions.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">8. Third-Party Services</h2>
+          <p>
+            The Service integrates with third-party providers, including:
+          </p>
+          <ul class="list-disc list-inside mt-3 space-y-1.5 text-text-secondary">
+            <li><strong>LLM providers</strong> (e.g., Anthropic, OpenAI, Google) — your prompts and agent interactions are sent to these providers for inference</li>
+            <li><strong>Messaging platforms</strong> (e.g., Telegram, Discord, Slack) — messages are routed through their APIs</li>
+            <li><strong>Authentication</strong> (Firebase/Google) — for account management</li>
+            <li><strong>Payment processors</strong> — for billing transactions</li>
+          </ul>
+          <p class="mt-3">
+            Your use of these third-party services is subject to their respective terms and privacy policies.
+            We are not responsible for the availability, accuracy, or conduct of third-party services.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">9. Disclaimers</h2>
+          <p>
+            THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS
+            OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+            PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+          </p>
+          <p class="mt-3">
+            We do not warrant that: (a) the Service will be uninterrupted, secure, or error-free; (b) AI-generated
+            outputs will be accurate, complete, or suitable for any particular purpose; (c) agents will perform
+            as expected in all circumstances; or (d) defects will be corrected.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">10. Limitation of Liability</h2>
+          <p>
+            TO THE MAXIMUM EXTENT PERMITTED BY LAW, SYNECTO LLC SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL,
+            SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, DATA, USE, OR GOODWILL,
+            ARISING OUT OF OR RELATED TO YOUR USE OF THE SERVICE.
+          </p>
+          <p class="mt-3">
+            OUR TOTAL AGGREGATE LIABILITY FOR ALL CLAIMS RELATED TO THE SERVICE SHALL NOT EXCEED THE AMOUNT
+            YOU HAVE PAID US IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">11. Indemnification</h2>
+          <p>
+            You agree to indemnify, defend, and hold harmless Synecto LLC and its officers, directors, employees,
+            and agents from any claims, damages, losses, or expenses (including reasonable attorneys' fees) arising
+            from: (a) your use of the Service; (b) Your Content or your agents' actions and outputs; (c) your
+            violation of these Terms; or (d) your violation of any third-party rights.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">12. Termination</h2>
+          <p>
+            You may terminate your account at any time by contacting us. We may suspend or terminate your access
+            to the Service at any time for violation of these Terms or for any other reason with reasonable notice,
+            except in cases of severe violations where immediate action is warranted.
+          </p>
+          <p class="mt-3">
+            Upon termination, your right to use the Service ceases immediately. We will make your workspace data
+            available for export for 30 days following termination, after which it may be permanently deleted.
+            Any remaining credit balance at the time of termination is non-refundable.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">13. Governing Law</h2>
+          <p>
+            These Terms are governed by and construed in accordance with the laws of the State of Delaware,
+            United States, without regard to its conflict of law provisions. Any disputes arising from these
+            Terms shall be resolved in the state or federal courts located in Delaware.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">14. Contact</h2>
+          <p>
+            If you have any questions about these Terms, please contact us at
+            <a href="mailto:legal@synecto.cloud" class="text-wire-400 hover:text-wire-300 transition-colors">legal@synecto.cloud</a>.
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

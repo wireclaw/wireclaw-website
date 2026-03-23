@@ -1,0 +1,77 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+---
+
+<Layout
+  title="Blog — Wireclaw"
+  description="Engineering insights, product updates, and guides from the Wireclaw team."
+>
+  <Navbar />
+
+  <main class="pt-24 pb-20 min-h-screen">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="mb-12">
+        <h1 class="text-4xl font-display font-bold mb-4" data-animate>Blog</h1>
+        <p class="text-lg text-text-secondary max-w-2xl" data-animate data-delay="1">
+          Engineering insights, product updates, and guides from the Wireclaw team.
+        </p>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2">
+        {posts.map((post, idx) => (
+          <a
+            href={`/blog/${post.id}`}
+            class="group block p-6 rounded-xl bg-surface-raised border border-white/5 hover:border-wire-500/20 transition-all duration-200"
+            data-animate
+            data-delay={idx + 1}
+          >
+            <div class="flex items-center gap-3 mb-3">
+              <time class="text-xs font-mono text-text-muted">
+                {formatDate(post.data.date)}
+              </time>
+            </div>
+
+            <h2 class="font-display font-semibold text-lg mb-2 group-hover:text-wire-400 transition-colors leading-snug">
+              {post.data.title}
+            </h2>
+
+            <p class="text-sm text-text-muted leading-relaxed mb-4">
+              {post.data.description}
+            </p>
+
+            <div class="flex flex-wrap gap-2">
+              {post.data.tags.map((tag) => (
+                <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-wire-500/10 text-wire-400">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+
+      {posts.length === 0 && (
+        <div class="text-center py-20">
+          <p class="text-text-muted">No posts yet. Check back soon.</p>
+        </div>
+      )}
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

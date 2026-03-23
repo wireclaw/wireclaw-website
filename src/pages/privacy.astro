@@ -1,0 +1,234 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout title="Privacy Policy — Wireclaw" description="Privacy Policy for the Wireclaw autonomous AI agent platform.">
+  <Navbar />
+  <main class="pt-32 pb-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="font-display text-4xl font-bold tracking-tight mb-4">Privacy Policy</h1>
+      <p class="text-text-muted text-sm mb-12">Last updated: March 23, 2026</p>
+
+      <div class="space-y-10 text-text-secondary leading-relaxed">
+
+        <section>
+          <p>
+            Synecto LLC ("Company", "we", "us", "our") operates the Wireclaw platform ("Service").
+            This Privacy Policy explains how we collect, use, store, and protect your information
+            when you use our Service.
+          </p>
+          <p class="mt-3">
+            By using the Service, you agree to the collection and use of information as described in this policy.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">1. Information We Collect</h2>
+
+          <h3 class="font-display text-base font-semibold text-text-primary mt-5 mb-2">Account Information</h3>
+          <p>
+            When you create an account, we collect information provided through Firebase Authentication,
+            which may include your email address, display name, and profile photo. If you sign in via
+            a third-party provider (e.g., Google), we receive basic profile information from that provider.
+          </p>
+
+          <h3 class="font-display text-base font-semibold text-text-primary mt-5 mb-2">Agent & Workspace Data</h3>
+          <p>
+            We store the data you create through the Service, including:
+          </p>
+          <ul class="list-disc list-inside mt-2 space-y-1.5">
+            <li>Agent configurations (model selection, system prompts, tool settings, channel bindings)</li>
+            <li>Workspace files (instructions, memory files, runtime state)</li>
+            <li>Agent conversation history and memory data</li>
+          </ul>
+
+          <h3 class="font-display text-base font-semibold text-text-primary mt-5 mb-2">Usage & Billing Data</h3>
+          <p>
+            We collect data related to your use of the Service, including:
+          </p>
+          <ul class="list-disc list-inside mt-2 space-y-1.5">
+            <li>Token consumption and compute usage per agent</li>
+            <li>Billing transactions and credit balance history</li>
+            <li>Agent session durations and activity logs</li>
+          </ul>
+
+          <h3 class="font-display text-base font-semibold text-text-primary mt-5 mb-2">Technical Data</h3>
+          <p>
+            We automatically collect certain technical information, including IP address, browser type,
+            device information, and access timestamps. This data is used for security, analytics,
+            and service improvement.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">2. How We Use Your Information</h2>
+          <p>We use the collected information to:</p>
+          <ul class="list-disc list-inside mt-3 space-y-1.5">
+            <li>Provide, operate, and maintain the Service</li>
+            <li>Process billing and manage your account balance</li>
+            <li>Deploy and run your AI agents across messaging channels</li>
+            <li>Store and restore agent workspaces between sessions</li>
+            <li>Provide customer support</li>
+            <li>Monitor and prevent abuse, fraud, and security threats</li>
+            <li>Analyze usage patterns to improve the Service</li>
+            <li>Communicate with you about the Service (updates, security alerts, billing notifications)</li>
+          </ul>
+          <p class="mt-3">
+            We do not use your agent data, prompts, or workspace content to train AI models.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">3. Data Storage & Security</h2>
+          <p>Your data is stored across several systems:</p>
+          <ul class="list-disc list-inside mt-3 space-y-1.5">
+            <li><strong>Agent workspaces</strong> are stored as encrypted archives in cloud object storage (S3-compatible)</li>
+            <li><strong>Account and configuration data</strong> is stored in PostgreSQL databases</li>
+            <li><strong>Session state</strong> is managed through Redis with automatic expiration</li>
+            <li><strong>Authentication</strong> is handled by Firebase with industry-standard security practices</li>
+          </ul>
+          <p class="mt-3">
+            We implement appropriate technical and organizational measures to protect your data,
+            including encryption in transit (TLS) and at rest, access controls, and regular security reviews.
+            However, no method of transmission or storage is 100% secure, and we cannot guarantee
+            absolute security.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">4. Third-Party Services</h2>
+          <p>
+            The Service relies on third-party providers to function. When you use the Service,
+            your data may be shared with:
+          </p>
+          <ul class="list-disc list-inside mt-3 space-y-1.5">
+            <li>
+              <strong>LLM providers</strong> (e.g., Anthropic, OpenAI, Google) — your agent prompts,
+              conversation context, and tool results are sent to the selected LLM provider for inference.
+              These providers have their own data handling policies.
+            </li>
+            <li>
+              <strong>Messaging platforms</strong> (e.g., Telegram, Discord, Slack) — messages are
+              transmitted through their APIs to deliver agent responses.
+            </li>
+            <li>
+              <strong>Firebase / Google Cloud</strong> — for authentication and identity management.
+            </li>
+            <li>
+              <strong>Payment processors</strong> — for processing credit purchases. We do not store
+              full payment card details on our servers.
+            </li>
+          </ul>
+          <p class="mt-3">
+            We encourage you to review the privacy policies of these third-party services.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">5. Data Retention</h2>
+          <p>
+            We retain your data for as long as your account is active or as needed to provide the Service.
+            Specifically:
+          </p>
+          <ul class="list-disc list-inside mt-3 space-y-1.5">
+            <li>Account information is retained until you delete your account</li>
+            <li>Agent workspaces are retained while the agent exists and for 30 days after deletion</li>
+            <li>Billing records are retained for 7 years as required by tax and accounting regulations</li>
+            <li>Technical logs are retained for up to 90 days</li>
+          </ul>
+          <p class="mt-3">
+            After account termination, we will delete or anonymize your data within 30 days,
+            except where retention is required by law.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">6. Your Rights</h2>
+          <p>
+            Depending on your jurisdiction, you may have the following rights regarding your personal data:
+          </p>
+          <ul class="list-disc list-inside mt-3 space-y-1.5">
+            <li><strong>Access</strong> — request a copy of the personal data we hold about you</li>
+            <li><strong>Correction</strong> — request correction of inaccurate or incomplete data</li>
+            <li><strong>Deletion</strong> — request deletion of your personal data</li>
+            <li><strong>Export</strong> — request your data in a portable, machine-readable format</li>
+            <li><strong>Restriction</strong> — request that we limit processing of your data</li>
+            <li><strong>Objection</strong> — object to certain types of data processing</li>
+          </ul>
+          <p class="mt-3">
+            To exercise any of these rights, contact us at
+            <a href="mailto:legal@synecto.cloud" class="text-wire-400 hover:text-wire-300 transition-colors">legal@synecto.cloud</a>.
+            We will respond to your request within 30 days.
+          </p>
+          <p class="mt-3">
+            If you are a California resident, you have additional rights under the California Consumer Privacy Act (CCPA),
+            including the right to know what personal information we collect and the right to opt out of the sale
+            of personal information. We do not sell your personal information.
+          </p>
+          <p class="mt-3">
+            If you are in the European Economic Area (EEA), you have rights under the General Data Protection
+            Regulation (GDPR). Our legal basis for processing your data is the performance of our contract
+            with you (these Terms of Service) and our legitimate interests in operating and improving the Service.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">7. Cookies & Analytics</h2>
+          <p>
+            We use essential cookies to maintain your session and authentication state. We may also use
+            analytics tools to understand how the Service is used. We do not use advertising cookies
+            or sell data to advertisers.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">8. Children's Privacy</h2>
+          <p>
+            The Service is not directed to individuals under 18 years of age. We do not knowingly collect
+            personal information from children. If we become aware that a child has provided us with
+            personal information, we will take steps to delete it promptly. If you believe a child
+            has provided us with personal data, please contact us.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">9. International Data Transfers</h2>
+          <p>
+            Your data may be transferred to, stored, and processed in the United States or other countries
+            where our service providers operate. By using the Service, you consent to the transfer of your
+            data to these locations. We ensure appropriate safeguards are in place for international transfers
+            in compliance with applicable data protection laws.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">10. Changes to This Policy</h2>
+          <p>
+            We may update this Privacy Policy from time to time. We will notify you of material changes
+            by posting the updated policy on this page and updating the "Last updated" date.
+            For significant changes, we will provide additional notice via email or through the Service.
+          </p>
+          <p class="mt-3">
+            Continued use of the Service after changes constitutes acceptance of the revised policy.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-xl font-semibold text-text-primary mb-3">11. Contact</h2>
+          <p>
+            If you have any questions about this Privacy Policy or our data practices, please contact us at
+            <a href="mailto:legal@synecto.cloud" class="text-wire-400 hover:text-wire-300 transition-colors">legal@synecto.cloud</a>.
+          </p>
+          <p class="mt-3">
+            Synecto LLC<br />
+            Email: <a href="mailto:legal@synecto.cloud" class="text-wire-400 hover:text-wire-300 transition-colors">legal@synecto.cloud</a>
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
