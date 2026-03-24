@@ -1,54 +1,48 @@
 ---
 import "../styles/global.css";
 
+interface ArticleMeta {
+  publishedTime: string;
+  author: string;
+  section: string;
+  tags: string[];
+}
+
 interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
+  ogType?: string;
+  canonicalUrl?: string;
+  keywords?: string[];
+  articleMeta?: ArticleMeta;
 }
 
 const {
   title = "Wireclaw - Autonomous AI Agent Platform",
   description = "Deploy autonomous AI agents across Telegram, Slack, Discord, and more. Persistent memory, autonomous tools, any LLM model. First agent live in 5 minutes.",
+  ogImage = "/og-image.png",
+  ogType = "website",
+  canonicalUrl,
+  keywords = [],
+  articleMeta,
 } = Astro.props;
 
-const ogImage = "/og-image.png";
 const siteUrl = "https://wireclaw.ai";
----
+const fullOgImage = ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage}`;
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
-    <meta name="generator" content={Astro.generator} />
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={`${siteUrl}${ogImage}`} />
-    <meta property="og:url" content={siteUrl} />
-    <meta property="og:site_name" content="Wireclaw" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Instrument+Sans:wght@400..700&family=JetBrains+Mono:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-
-    <title>{title}</title>
-
-    <!-- Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify({
+const structuredData = articleMeta
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": title,
+      "description": description,
+      "datePublished": articleMeta.publishedTime,
+      "author": { "@type": "Organization", "name": "Wireclaw", "url": siteUrl },
+      "publisher": { "@type": "Organization", "name": "Wireclaw", "url": siteUrl },
+      "image": fullOgImage,
+    }
+  : {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Wireclaw",
@@ -60,9 +54,60 @@ const siteUrl = "https://wireclaw.ai";
         "price": "0",
         "priceCurrency": "USD",
         "name": "Pay as you go",
-        "description": "Free to start, no credit card required. Pay only for compute."
-      }
-    })} />
+        "description": "Free to start, no credit card required. Pay only for compute.",
+      },
+    };
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    {keywords.length > 0 && <meta name="keywords" content={keywords.join(", ")} />}
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={fullOgImage} />
+    <meta property="og:url" content={canonicalUrl || siteUrl} />
+    <meta property="og:site_name" content="Wireclaw" />
+    {articleMeta && <meta property="article:published_time" content={articleMeta.publishedTime} />}
+    {articleMeta && <meta property="article:author" content={articleMeta.author} />}
+    {articleMeta && <meta property="article:section" content={articleMeta.section} />}
+    {articleMeta?.tags.map((tag) => <meta property="article:tag" content={tag} />)}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={fullOgImage} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Instrument+Sans:wght@400..700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{title}</title>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+    <!-- PostHog Analytics -->
+    <script>
+      !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+      posthog.init('YOUR_POSTHOG_PROJECT_API_KEY', {
+        api_host: 'https://us.i.posthog.com',
+        person_profiles: 'identified_only',
+      });
+    </script>
   </head>
   <body class="min-h-screen bg-navy-950 text-text-primary antialiased">
     <slot />

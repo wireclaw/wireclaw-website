@@ -8,6 +8,25 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 
+const seriesFilters = [
+  { id: "all", label: "All" },
+  { id: "build-this", label: "Build This" },
+  { id: "under-the-hood", label: "Under the Hood" },
+  { id: "agent-patterns", label: "Agent Patterns" },
+  { id: "versus", label: "Versus" },
+  { id: "toolbox", label: "Toolbox" },
+  { id: "ship-log", label: "Ship Log" },
+];
+
+const seriesLabels: Record<string, string> = {
+  "build-this": "Build This",
+  "under-the-hood": "Under the Hood",
+  "agent-patterns": "Agent Patterns",
+  "versus": "Versus",
+  "toolbox": "Toolbox",
+  "ship-log": "Ship Log",
+};
+
 function formatDate(date: Date): string {
   return date.toLocaleDateString("en-US", {
     year: "numeric",
@@ -32,18 +51,41 @@ function formatDate(date: Date): string {
         </p>
       </div>
 
+      <!-- Series filter -->
+      <div class="flex flex-wrap gap-2 mb-8" data-animate data-delay="2">
+        {seriesFilters.map((s) => (
+          <button
+            data-filter={s.id}
+            class:list={[
+              "series-filter text-xs font-mono px-3 py-1.5 rounded-full border transition-colors cursor-pointer",
+              s.id === "all"
+                ? "bg-wire-500/15 text-wire-400 border-wire-500/30"
+                : "bg-transparent text-text-muted border-white/10 hover:text-text-secondary hover:border-white/20",
+            ]}
+          >
+            {s.label}
+          </button>
+        ))}
+      </div>
+
       <div class="grid gap-6 sm:grid-cols-2">
         {posts.map((post, idx) => (
           <a
             href={`/blog/${post.id}`}
             class="group block p-6 rounded-xl bg-surface-raised border border-white/5 hover:border-wire-500/20 transition-all duration-200"
             data-animate
-            data-delay={idx + 1}
+            data-delay={Math.min(idx + 1, 6)}
+            data-series={post.data.series || "none"}
           >
             <div class="flex items-center gap-3 mb-3">
               <time class="text-xs font-mono text-text-muted">
                 {formatDate(post.data.date)}
               </time>
+              {post.data.series && (
+                <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-claw-500/10 text-claw-400">
+                  {seriesLabels[post.data.series]}
+                </span>
+              )}
             </div>
 
             <h2 class="font-display font-semibold text-lg mb-2 group-hover:text-wire-400 transition-colors leading-snug">
@@ -70,8 +112,58 @@ function formatDate(date: Date): string {
           <p class="text-text-muted">No posts yet. Check back soon.</p>
         </div>
       )}
+
+      <!-- Empty state for filtered results -->
+      <div id="no-results" class="hidden text-center py-20">
+        <p class="text-text-muted">No posts in this series yet.</p>
+      </div>
     </div>
   </main>
 
   <Footer />
+
+  <!-- Series filter script -->
+  <script>
+    const buttons = document.querySelectorAll('.series-filter');
+    const cards = document.querySelectorAll<HTMLElement>('[data-series]');
+    const noResults = document.getElementById('no-results');
+
+    function setFilter(series: string) {
+      buttons.forEach((btn) => {
+        const isActive = btn.getAttribute('data-filter') === series;
+        btn.classList.toggle('bg-wire-500/15', isActive);
+        btn.classList.toggle('text-wire-400', isActive);
+        btn.classList.toggle('border-wire-500/30', isActive);
+        btn.classList.toggle('bg-transparent', !isActive);
+        btn.classList.toggle('text-text-muted', !isActive);
+        btn.classList.toggle('border-white/10', !isActive);
+      });
+
+      let visibleCount = 0;
+      cards.forEach((card) => {
+        const show = series === 'all' || card.dataset.series === series;
+        card.classList.toggle('hidden', !show);
+        if (show) visibleCount++;
+      });
+
+      if (noResults) {
+        noResults.classList.toggle('hidden', visibleCount > 0);
+      }
+
+      const url = new URL(window.location.href);
+      if (series === 'all') url.searchParams.delete('series');
+      else url.searchParams.set('series', series);
+      history.replaceState(null, '', url.toString());
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        setFilter(btn.getAttribute('data-filter') || 'all');
+      });
+    });
+
+    // Apply filter from URL on load
+    const urlSeries = new URLSearchParams(window.location.search).get('series');
+    if (urlSeries) setFilter(urlSeries);
+  </script>
 </Layout>

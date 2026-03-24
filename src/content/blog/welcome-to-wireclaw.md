@@ -4,6 +4,7 @@ description: Deploy AI agents that live where your users are — Telegram, Disco
 date: 2026-03-23
 author: Wireclaw Team
 tags: [announcement, launch]
+series: ship-log
 ---
 
 # Introducing Wireclaw

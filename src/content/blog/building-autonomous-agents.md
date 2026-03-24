@@ -4,6 +4,7 @@ description: How persistent memory transforms AI agents from stateless chatbots 
 date: 2026-03-20
 author: Wireclaw Team
 tags: [engineering, agents, memory]
+series: under-the-hood
 ---
 
 # Building Autonomous Agents with Persistent Memory
