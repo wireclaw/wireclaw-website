@@ -1,0 +1,83 @@
+---
+title: "Test Post: Validating Blog Infrastructure"
+description: "Internal test post to verify MDX rendering, syntax highlighting, OG image generation, series badges, and TOC."
+date: 2026-03-24
+author: Wireclaw Team
+tags: [test, infrastructure]
+series: build-this
+draft: true
+keywords: [test, blog, infrastructure]
+---
+
+# Test Post: Validating Blog Infrastructure
+
+This post validates the blog infrastructure end-to-end: MDX, syntax highlighting, series badges, table of contents, and OG image generation.
+
+## Agent Configuration
+
+Here's a sample TOML config for a research agent:
+
+```toml
+[agent]
+name = "research-bot"
+model = "claude-sonnet-4-5"
+
+[agent.personality]
+role = "Research Assistant"
+instruction = "You help users research topics by browsing the web and summarizing findings."
+
+[channels]
+telegram = { token = "YOUR_BOT_TOKEN", allowed_users = ["@username"] }
+
+[tools]
+enabled = ["web_search", "browser", "pdf_read"]
+
+[memory]
+backend = "persistent"
+ttl = "30d"
+
+[cost_limits]
+daily_usd = 5.00
+```
+
+## Deploying Your Agent
+
+Deploy with a single command:
+
+```bash
+$ wireclaw deploy research-bot
+Deploying research-bot...
+✓ Config validated
+✓ Workspace created (s3://wc-workspaces/research-bot)
+✓ Agent live on Telegram
+Agent URL: https://t.me/your_research_bot
+```
+
+## JavaScript Example
+
+```javascript
+import { WireclawClient } from "@wireclaw/sdk";
+
+const client = new WireclawClient({ apiKey: "wc_..." });
+
+const agent = await client.agents.create({
+  name: "research-bot",
+  model: "claude-sonnet-4-5",
+  channels: ["telegram"],
+  tools: ["web_search", "browser"],
+});
+
+console.log(`Agent deployed: ${agent.url}`);
+```
+
+## What's Next
+
+This test post validates:
+- MDX rendering
+- Syntax highlighting (TOML, Bash, JavaScript)
+- Series badge (Build This)
+- Table of contents (4 H2 headings)
+- OG image generation
+- Reading time calculation
+- Copy button on code blocks
+- Newsletter subscription form

@@ -2,6 +2,8 @@
 import Layout from "../../layouts/Layout.astro";
 import Navbar from "../../components/Navbar.astro";
 import Footer from "../../components/Footer.astro";
+import SeriesBadge from "../../components/SeriesBadge.astro";
+import NewsletterForm from "../../components/NewsletterForm.astro";
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -22,16 +24,19 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 // TOC — H2 only
 const toc = headings.filter((h) => h.depth === 2);
 
-// Series metadata
-const seriesLabels: Record<string, { label: string; color: string }> = {
-  "build-this": { label: "Build This", color: "wire" },
-  "under-the-hood": { label: "Under the Hood", color: "claw" },
-  "agent-patterns": { label: "Agent Patterns", color: "wire" },
-  "versus": { label: "Versus", color: "wire" },
-  "toolbox": { label: "Toolbox", color: "wire" },
-  "ship-log": { label: "Ship Log", color: "wire" },
+// OG image: custom or auto-generated
+const ogImage = post.data.image || `/og/${post.id}.png`;
+
+// Series label for article meta
+const seriesLabelMap: Record<string, string> = {
+  "build-this": "Build This",
+  "under-the-hood": "Under the Hood",
+  "agent-patterns": "Agent Patterns",
+  "versus": "Versus",
+  "toolbox": "Toolbox",
+  "ship-log": "Ship Log",
 };
-const seriesInfo = post.data.series ? seriesLabels[post.data.series] : null;
+const seriesLabel = post.data.series ? seriesLabelMap[post.data.series] : null;
 
 function formatDate(date: Date): string {
   return date.toLocaleDateString("en-US", {
@@ -48,13 +53,13 @@ const siteUrl = "https://wireclaw.ai";
   title={`${post.data.title} — Wireclaw Blog`}
   description={post.data.description}
   ogType="article"
-  ogImage={post.data.image}
+  ogImage={ogImage}
   canonicalUrl={`${siteUrl}/blog/${post.id}`}
   keywords={post.data.keywords}
   articleMeta={{
     publishedTime: post.data.date.toISOString(),
     author: post.data.author,
-    section: seriesInfo?.label || "Blog",
+    section: seriesLabel || "Blog",
     tags: post.data.tags,
   }}
 >
@@ -67,18 +72,8 @@ const siteUrl = "https://wireclaw.ai";
         <article class="max-w-3xl w-full">
           <header class="mb-10">
             <div class="flex items-center gap-3 mb-4 flex-wrap">
-              {seriesInfo && (
-                <a
-                  href={`/blog?series=${post.data.series}`}
-                  class:list={[
-                    "inline-flex items-center text-xs font-mono px-2.5 py-1 rounded-full border transition-colors",
-                    seriesInfo.color === "claw"
-                      ? "bg-claw-500/10 text-claw-400 border-claw-500/20 hover:bg-claw-500/15"
-                      : "bg-wire-500/10 text-wire-400 border-wire-500/20 hover:bg-wire-500/15",
-                  ]}
-                >
-                  {seriesInfo.label}
-                </a>
+              {post.data.series && (
+                <SeriesBadge series={post.data.series} linked />
               )}
               <time class="text-sm font-mono text-text-muted">
                 {formatDate(post.data.date)}
@@ -102,7 +97,11 @@ const siteUrl = "https://wireclaw.ai";
             <Content />
           </div>
 
-          <div class="mt-16 pt-8 border-t border-white/5">
+          <div class="mt-12">
+            <NewsletterForm />
+          </div>
+
+          <div class="mt-8 pt-8 border-t border-white/5">
             <a
               href="/blog"
               class="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-wire-400 transition-colors"

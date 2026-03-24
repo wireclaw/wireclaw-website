@@ -2,6 +2,8 @@
 import Layout from "../../layouts/Layout.astro";
 import Navbar from "../../components/Navbar.astro";
 import Footer from "../../components/Footer.astro";
+import SeriesBadge from "../../components/SeriesBadge.astro";
+import NewsletterForm from "../../components/NewsletterForm.astro";
 import { getCollection } from "astro:content";
 
 const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
@@ -17,15 +19,6 @@ const seriesFilters = [
   { id: "toolbox", label: "Toolbox" },
   { id: "ship-log", label: "Ship Log" },
 ];
-
-const seriesLabels: Record<string, string> = {
-  "build-this": "Build This",
-  "under-the-hood": "Under the Hood",
-  "agent-patterns": "Agent Patterns",
-  "versus": "Versus",
-  "toolbox": "Toolbox",
-  "ship-log": "Ship Log",
-};
 
 function formatDate(date: Date): string {
   return date.toLocaleDateString("en-US", {
@@ -82,9 +75,7 @@ function formatDate(date: Date): string {
                 {formatDate(post.data.date)}
               </time>
               {post.data.series && (
-                <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-claw-500/10 text-claw-400">
-                  {seriesLabels[post.data.series]}
-                </span>
+                <SeriesBadge series={post.data.series} />
               )}
             </div>
 
@@ -116,6 +107,11 @@ function formatDate(date: Date): string {
       <!-- Empty state for filtered results -->
       <div id="no-results" class="hidden text-center py-20">
         <p class="text-text-muted">No posts in this series yet.</p>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="mt-16">
+        <NewsletterForm />
       </div>
     </div>
   </main>

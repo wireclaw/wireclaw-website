@@ -1,0 +1,76 @@
+---
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<div class:list={[
+  "newsletter-form rounded-xl border border-white/5",
+  compact ? "p-6" : "p-8 bg-surface-raised",
+]}>
+  {!compact && (
+    <h3 class="font-display font-semibold text-lg mb-2">Stay in the loop</h3>
+    <p class="text-sm text-text-muted mb-6">
+      Engineering insights and product updates. Bi-weekly, no spam.
+    </p>
+  )}
+
+  <form class="flex gap-3" data-newsletter-form>
+    <input
+      type="email"
+      name="email"
+      required
+      placeholder="you@example.com"
+      class="flex-1 px-4 py-2.5 rounded-lg bg-navy-800 border border-white/10 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-wire-500/50 focus:ring-1 focus:ring-wire-500/20 transition-colors"
+    />
+    <button
+      type="submit"
+      class="px-5 py-2.5 rounded-lg bg-wire-500 text-white text-sm font-medium hover:bg-wire-400 transition-colors cursor-pointer shrink-0"
+    >
+      Subscribe
+    </button>
+  </form>
+
+  <p class="newsletter-message hidden text-sm mt-3"></p>
+</div>
+
+<script>
+  document.querySelectorAll('[data-newsletter-form]').forEach((form) => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formEl = e.target as HTMLFormElement;
+      const msg = formEl.closest('.newsletter-form')?.querySelector('.newsletter-message');
+      const email = new FormData(formEl).get('email') as string;
+
+      if (!email || !msg) return;
+
+      const btn = formEl.querySelector('button') as HTMLButtonElement;
+      btn.disabled = true;
+      btn.textContent = 'Subscribing...';
+
+      try {
+        // TODO: Replace with Resend API endpoint when account is created
+        // const res = await fetch('/api/subscribe', {
+        //   method: 'POST',
+        //   headers: { 'Content-Type': 'application/json' },
+        //   body: JSON.stringify({ email }),
+        // });
+
+        // Temporary: show success (wire up Resend later)
+        msg.textContent = 'Thanks! You\'ll hear from us soon.';
+        msg.classList.remove('hidden', 'text-red-400');
+        msg.classList.add('text-green-400');
+        formEl.reset();
+      } catch {
+        msg.textContent = 'Something went wrong. Try again.';
+        msg.classList.remove('hidden', 'text-green-400');
+        msg.classList.add('text-red-400');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Subscribe';
+      }
+    });
+  });
+</script>

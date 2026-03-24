@@ -1,0 +1,36 @@
+---
+interface Props {
+  series: string;
+  linked?: boolean;
+}
+
+const seriesMap: Record<string, { label: string; color: "wire" | "claw" }> = {
+  "build-this": { label: "Build This", color: "wire" },
+  "under-the-hood": { label: "Under the Hood", color: "claw" },
+  "agent-patterns": { label: "Agent Patterns", color: "wire" },
+  "versus": { label: "Versus", color: "wire" },
+  "toolbox": { label: "Toolbox", color: "wire" },
+  "ship-log": { label: "Ship Log", color: "wire" },
+};
+
+const { series, linked = false } = Astro.props;
+const info = seriesMap[series];
+if (!info) return;
+
+const Tag = linked ? "a" : "span";
+const href = linked ? `/blog?series=${series}` : undefined;
+
+const wireClasses = "bg-wire-500/10 text-wire-400 border-wire-500/20 hover:bg-wire-500/15";
+const clawClasses = "bg-claw-500/10 text-claw-400 border-claw-500/20 hover:bg-claw-500/15";
+const colorClasses = info.color === "claw" ? clawClasses : wireClasses;
+---
+
+<Tag
+  href={href}
+  class:list={[
+    "inline-flex items-center text-xs font-mono px-2.5 py-1 rounded-full border transition-colors",
+    colorClasses,
+  ]}
+>
+  {info.label}
+</Tag>
