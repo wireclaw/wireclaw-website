@@ -36,7 +36,7 @@ We built all of this so you don't have to.
 
 ## Key Features
 
-- **25+ channel integrations** — Telegram, Discord, Slack, and more
+- **Native channel integrations** — Telegram, Discord, Slack, and more
 - **Persistent memory** — agents remember across sessions
 - **Any LLM model** — Claude, GPT, Gemini, Llama, and others
 - **Built-in tools** — web search, browser, HTTP, file I/O, PDF reading
