@@ -10,6 +10,10 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'Wireclaw Docs',
+      components: {
+        SiteTitle: './src/components/starlight/SiteTitle.astro',
+        Sidebar: './src/components/starlight/Sidebar.astro',
+      },
       favicon: '/favicon.svg',
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/wireclaw' },

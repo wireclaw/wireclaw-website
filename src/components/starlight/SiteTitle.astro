@@ -1,0 +1,89 @@
+---
+/**
+ * Custom SiteTitle override for Starlight.
+ * Renders "wireclaw / Docs" with split navigation:
+ * - "wireclaw" + logo → links to / (main site)
+ * - "Docs" → links to /docs/ (docs root)
+ */
+---
+
+<div class="site-title">
+  <a href="/" class="brand">
+    <svg viewBox="0 0 32 32" class="logo" fill="none">
+      <path
+        d="M16 2L4 9v14l12 7 12-7V9L16 2z"
+        stroke="currentColor"
+        stroke-width="1.5"
+      />
+      <path
+        d="M16 2v28M4 9l12 7 12-7M4 23l12-7 12 7"
+        stroke="currentColor"
+        stroke-width="1"
+        opacity="0.5"
+      />
+      <circle cx="16" cy="16" r="3" fill="currentColor" opacity="0.8" />
+    </svg>
+    <span class="wordmark">wire<span class="accent">claw</span></span>
+  </a>
+  <a href="/docs/" class="section">Docs</a>
+</div>
+
+<style>
+  .site-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    line-height: 1;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--sl-color-white);
+    transition: opacity 0.2s;
+    margin-right: 8px;
+  }
+
+  .brand:hover {
+    opacity: 0.8;
+  }
+
+  .logo {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--sl-color-accent);
+    flex-shrink: 0;
+  }
+
+  .wordmark {
+    font-family: 'Instrument Sans', var(--sl-font);
+    font-weight: 700;
+    font-size: var(--sl-text-sm);
+    letter-spacing: -0.02em;
+  }
+
+  .accent {
+    color: var(--sl-color-accent);
+  }
+
+  .separator {
+    color: var(--sl-color-gray-3);
+    font-weight: 300;
+    font-size: var(--sl-text-sm);
+    user-select: none;
+  }
+
+  .section {
+    color: var(--sl-color-gray-1);
+    font-weight: 500;
+    font-size: var(--sl-text-sm);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .section:hover {
+    color: var(--sl-color-white);
+  }
+</style>
