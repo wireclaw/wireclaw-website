@@ -1,0 +1,78 @@
+---
+title: "Connect Telegram"
+description: "Connect your Wireclaw agent to Telegram in 2 minutes."
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+
+Connect your agent to Telegram so users can interact with it via a Telegram bot.
+
+## Prerequisites
+
+- A Wireclaw agent ([create one](/docs/getting-started/quickstart) if you haven't)
+- A Telegram account
+
+## Setup
+
+<Steps>
+
+1. **Create a bot with BotFather**
+
+   Open [@BotFather](https://t.me/botfather) in Telegram and send `/newbot`.
+
+   BotFather will ask for:
+   - **Bot name:** Display name (e.g., "My Research Bot")
+   - **Bot username:** Must end in `bot` (e.g., `my_research_bot`)
+
+   BotFather responds with a **bot token** like:
+   ```
+   123456789:ABCdefGHIjklMNOpqrSTUvwxYZ
+   ```
+
+   Copy this token.
+
+2. **Add the token in Wireclaw**
+
+   Go to **Dashboard → Your Agent → Channels → Add Telegram**.
+
+   Paste the bot token and click **Connect**.
+
+3. **Verify the connection**
+
+   A green checkmark next to the Telegram channel means it's connected and ready.
+
+   <Aside type="tip">If the status stays on "Connecting" for more than 30 seconds, check that you pasted the complete token including the colon.</Aside>
+
+4. **Set allowed users (optional)**
+
+   Restrict who can talk to your bot:
+
+   ```toml
+   [channels.telegram]
+   token = "123456789:ABCdefGHIjklMNOpqrSTUvwxYZ"
+   allowed_users = ["@alice", "@bob"]
+   ```
+
+   If `allowed_users` is omitted, anyone can message your bot.
+
+</Steps>
+
+## Test it
+
+Open your bot in Telegram (search for `@your_bot_username`) and send a message. The agent should respond within a few seconds.
+
+<Aside type="note">First response may take 5–10 seconds due to cold start. Subsequent messages are faster.</Aside>
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Bot doesn't respond | Check agent status is "Running" in Dashboard |
+| "Unauthorized" error | Regenerate the bot token in BotFather (`/revoke`) and update in Wireclaw |
+| Bot responds slowly | Check your model choice — faster models like `gemini-2.5-flash` have lower latency |
+
+## Next steps
+
+- [Connect Discord](/docs/guides/connect-discord) — add a second channel
+- [Agent Config reference](/docs/reference/agent-config) — customize your agent
+- [Built-in tools](/docs/reference/built-in-tools) — add more capabilities

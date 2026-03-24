@@ -1,0 +1,99 @@
+---
+title: "Supported Models"
+description: "All LLM providers and models available through Sulaert routing."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Wireclaw routes all LLM requests through **Sulaert**, an internal model router supporting 13+ providers. Switch models by changing one line in your config — no code changes needed.
+
+```toml
+[agent]
+model = "claude-sonnet-4-5"   # Change this to switch models
+```
+
+## Providers and models
+
+### Anthropic (Claude)
+
+| Model ID | Best for |
+|----------|----------|
+| `claude-opus-4-5` | Complex reasoning, analysis, long-form content |
+| `claude-sonnet-4-5` | Best balance of speed and capability |
+| `claude-haiku-3-5` | Fast responses, simple tasks, cost-efficient |
+
+### OpenAI (GPT)
+
+| Model ID | Best for |
+|----------|----------|
+| `gpt-4o` | Multimodal, general purpose |
+| `gpt-4o-mini` | Fast, cost-efficient |
+| `o3` | Advanced reasoning |
+
+### Google (Gemini)
+
+| Model ID | Best for |
+|----------|----------|
+| `gemini-2.5-pro` | Long context, multimodal |
+| `gemini-2.5-flash` | Fast, cost-efficient |
+
+### DeepSeek
+
+| Model ID | Best for |
+|----------|----------|
+| `deepseek-r1` | Reasoning, math, code |
+| `deepseek-chat` | General conversation |
+
+### Mistral AI
+
+| Model ID | Best for |
+|----------|----------|
+| `mistral-large` | Complex tasks, multilingual |
+| `mistral-small` | Fast, cost-efficient |
+
+### xAI (Grok)
+
+| Model ID | Best for |
+|----------|----------|
+| `grok-3` | General purpose, real-time knowledge |
+
+### Other providers
+
+| Provider | Setup |
+|----------|-------|
+| **Ollama** (local models) | Set `OLLAMA_HOST` env var |
+| **Azure OpenAI** | Set `AZURE_OPENAI_ENDPOINT` and `AZURE_OPENAI_API_KEY` |
+| **AWS Bedrock** | Set AWS credentials in env vars |
+| **Any OpenAI-compatible endpoint** | Set `OPENAI_API_URL` to your endpoint |
+
+## Model routing features
+
+**Automatic failover:** If the primary provider is unavailable, Sulaert automatically retries with a fallback provider.
+
+**Hint-based routing:** Use hints to influence provider selection:
+
+```toml
+[agent]
+model = "hint:fast"  # Routes to the fastest available model
+```
+
+**Provider timeout:** Configure the maximum wait time for a provider response:
+
+```toml
+[advanced]
+provider_timeout_secs = 120  # Default: 120 seconds
+```
+
+<Aside type="caution">Not all providers support all features. Vision, tool use, and extended thinking availability varies by model. Check provider docs for specifics.</Aside>
+
+## Bring your own key
+
+By default, Wireclaw uses platform API keys (costs included in your per-token pricing). To use your own provider keys:
+
+```toml
+[env]
+ANTHROPIC_API_KEY = "sk-ant-..."
+OPENAI_API_KEY = "sk-..."
+```
+
+<Aside type="note">Provider API keys are stored securely and never exposed in API responses or logs.</Aside>

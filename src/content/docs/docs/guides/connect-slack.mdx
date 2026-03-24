@@ -1,0 +1,90 @@
+---
+title: "Connect Slack"
+description: "Connect your Wireclaw agent to a Slack workspace."
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+
+Connect your agent to Slack so it can respond in channels and direct messages.
+
+## Prerequisites
+
+- A Wireclaw agent ([create one](/docs/getting-started/quickstart) if you haven't)
+- A Slack workspace where you have permission to install apps
+
+## Setup
+
+<Steps>
+
+1. **Create a Slack app**
+
+   Go to [api.slack.com/apps](https://api.slack.com/apps) → **Create New App** → **From scratch**.
+
+   Name it (e.g., "Wireclaw Agent") and select your workspace.
+
+2. **Configure permissions**
+
+   Go to **OAuth & Permissions** → **Scopes** → **Bot Token Scopes** and add:
+
+   - `app_mentions:read`
+   - `chat:write`
+   - `channels:history`
+   - `im:history`
+   - `im:write`
+
+3. **Enable Socket Mode**
+
+   Go to **Socket Mode** → enable it.
+
+   Generate an **App-Level Token** with the `connections:write` scope. Copy it — this is your `app_token`.
+
+4. **Enable Events**
+
+   Go to **Event Subscriptions** → enable events.
+
+   Subscribe to bot events:
+   - `app_mention`
+   - `message.im`
+
+5. **Install to workspace**
+
+   Go to **Install App** → **Install to Workspace** → authorize.
+
+   Copy the **Bot User OAuth Token** (`xoxb-...`).
+
+6. **Get the signing secret**
+
+   Go to **Basic Information** → **App Credentials** → copy **Signing Secret**.
+
+7. **Add credentials in Wireclaw**
+
+   Go to **Dashboard → Your Agent → Channels → Add Slack**.
+
+   ```toml
+   [channels.slack]
+   bot_token = "xoxb-..."
+   signing_secret = "abc123..."
+   app_token = "xapp-..."
+   ```
+
+   <Aside type="tip">Socket Mode means no public URL is needed — Wireclaw connects to Slack's WebSocket API directly.</Aside>
+
+</Steps>
+
+## Test it
+
+Mention your bot in a Slack channel (`@Wireclaw Agent`) or send it a direct message. The agent responds in-thread.
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Bot doesn't respond to mentions | Check `app_mentions:read` scope and `app_mention` event subscription |
+| "not_authed" error | Regenerate the Bot Token and update in Wireclaw |
+| Bot responds in wrong channel | Ensure `channels:history` scope is granted for the target channel |
+
+## Next steps
+
+- [Connect Telegram](/docs/guides/connect-telegram) — add another channel
+- [Connect Discord](/docs/guides/connect-discord) — add Discord
+- [Agent Config reference](/docs/reference/agent-config) — all configuration options

@@ -1,0 +1,157 @@
+---
+title: "Agent Config (TOML)"
+description: "Complete reference for agent configuration file."
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+Every Wireclaw agent is defined by a TOML configuration. This page covers all sections and fields.
+
+## Full example
+
+```toml
+[agent]
+name = "research-bot"
+model = "claude-sonnet-4-5"
+
+[agent.personality]
+role = "Research Assistant"
+instruction = "You help users research topics by browsing the web and summarizing findings."
+
+[channels.telegram]
+token = "YOUR_BOT_TOKEN"
+allowed_users = ["@username"]
+
+[tools]
+enabled = ["web_search", "browser", "pdf_read", "file_read", "file_write"]
+
+[memory]
+backend = "persistent"
+ttl = "30d"
+
+[cost_limits]
+daily_usd = 5.00
+```
+
+## `[agent]` section
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | Yes | Unique agent name (per user). Lowercase, hyphens allowed. |
+| `model` | string | Yes (for deploy) | Model ID. See [Supported Models](/docs/reference/supported-models). |
+
+## `[agent.personality]` section
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `role` | string | No | Short role description shown in system prompt. |
+| `instruction` | string | No | Detailed instruction for agent behavior. Markdown supported. |
+
+System prompts can also be defined in separate files: `AGENTS.md`, `SOUL.md`, `TOOLS.md`, `IDENTITY.md`, `USER.md`, `BOOTSTRAP.md`.
+
+## `[channels]` section
+
+One subsection per channel type. An agent can serve multiple channels simultaneously.
+
+<Tabs>
+<TabItem label="Telegram">
+```toml
+[channels.telegram]
+token = "123456:ABC-DEF..."
+allowed_users = ["@alice", "@bob"]  # optional, allows all if omitted
+```
+</TabItem>
+<TabItem label="Discord">
+```toml
+[channels.discord]
+token = "YOUR_DISCORD_BOT_TOKEN"
+guild_id = "123456789"  # optional, restricts to one server
+```
+</TabItem>
+<TabItem label="Slack">
+```toml
+[channels.slack]
+bot_token = "xoxb-..."
+signing_secret = "abc123..."
+app_token = "xapp-..."  # for Socket Mode
+```
+</TabItem>
+</Tabs>
+
+See the [Connect Telegram](/docs/guides/connect-telegram), [Connect Discord](/docs/guides/connect-discord), and [Connect Slack](/docs/guides/connect-slack) guides for setup steps.
+
+## `[tools]` section
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `enabled` | string[] | List of tool names to enable. See [Built-in Tools](/docs/reference/built-in-tools). |
+| `allowlist` | string[] | If set, restricts agent to only these tools. |
+| `autonomy` | string | `"supervised"`, `"guided"`, or `"autonomous"` (default). |
+
+```toml
+[tools]
+enabled = ["web_search", "browser", "shell", "file_read", "file_write"]
+autonomy = "autonomous"
+
+[tools.shell]
+sandbox = "landlock"  # Options: landlock, bubblewrap, firejail, docker
+timeout_secs = 30
+
+[tools.browser]
+domain_allowlist = ["*.wikipedia.org", "arxiv.org"]
+
+[tools.web_fetch]
+domain_allowlist = ["api.github.com", "*.stackoverflow.com"]
+```
+
+## `[memory]` section
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `backend` | string | `"persistent"` | Memory backend. Currently: `"persistent"`. |
+| `ttl` | string | `"30d"` | Time-to-live for memory entries. Format: `"7d"`, `"30d"`, `"90d"`. |
+
+Memory persists across sessions, restarts, and redeployments. The agent can use `memory_store`, `memory_recall`, and `memory_forget` tools.
+
+## `[mcp_servers]` section
+
+Connect external MCP servers for additional tool capabilities.
+
+```toml
+[mcp_servers.docs_search]
+url = "https://your-mcp-server.com"
+transport = "sse"  # or "stdio"
+
+[mcp_servers.internal_api]
+command = "npx"
+args = ["-y", "@your-org/mcp-server"]
+transport = "stdio"
+```
+
+## `[cost_limits]` section
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `daily_usd` | float | No limit | Maximum daily spend in USD. Agent pauses if exceeded. |
+
+<Aside type="caution">If you don't set a `daily_usd` limit, the agent can spend your entire balance in one session.</Aside>
+
+See [Billing & Cost Limits](/docs/reference/billing) for details on the pay-as-you-go model.
+
+## Environment variables
+
+```toml
+[env]
+CUSTOM_API_KEY = "your-value"
+DATABASE_URL = "postgresql://..."
+```
+
+Environment variables are available to the agent at runtime. Values are stored securely and never exposed in API list responses.
+
+## Advanced: raw config override
+
+```toml
+[advanced]
+# Raw RayCore config.toml fields — use with caution
+provider_timeout_secs = 120
+```

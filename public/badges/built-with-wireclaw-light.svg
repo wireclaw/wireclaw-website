@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="28" viewBox="0 0 200 28" fill="none">
+  <rect width="200" height="28" rx="6" fill="#F8FAFC"/>
+  <rect x="0.5" y="0.5" width="199" height="27" rx="5.5" stroke="#E2E8F0"/>
+  <!-- Hex icon -->
+  <path d="M18 5L10 9.5V18.5L18 23L26 18.5V9.5L18 5Z" stroke="#2563EB" stroke-width="1.2"/>
+  <circle cx="18" cy="14" r="2.5" fill="#2563EB" opacity="0.8"/>
+  <!-- Text -->
+  <text x="34" y="11" font-family="system-ui, sans-serif" font-size="9" fill="#64748B">built with</text>
+  <text x="34" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#0F172A">Wireclaw</text>
+</svg>

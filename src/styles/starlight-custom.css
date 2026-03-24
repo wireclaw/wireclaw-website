@@ -1,0 +1,44 @@
+/* Wireclaw brand overrides for Starlight docs — dark only */
+
+starlight-theme-select {
+  display: none;
+}
+
+:root {
+  --sl-color-accent-low: #1e293b;
+  --sl-color-accent: #3b82f6;
+  --sl-color-accent-high: #60a5fa;
+  --sl-color-white: #f1f5f9;
+  --sl-color-gray-1: #94a3b8;
+  --sl-color-gray-2: #64748b;
+  --sl-color-gray-3: #475569;
+  --sl-color-gray-4: #334155;
+  --sl-color-gray-5: #1e293b;
+  --sl-color-gray-6: #0f172a;
+  --sl-color-black: #020617;
+  --sl-color-bg-nav: #0b1120;
+  --sl-color-bg-sidebar: #0b1120;
+  --sl-color-hairline-light: rgba(255, 255, 255, 0.05);
+  --sl-color-hairline-shade: rgba(255, 255, 255, 0.1);
+  --sl-font: 'DM Sans', system-ui, sans-serif;
+  --sl-font-system-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --sl-text-h1: clamp(1.75rem, 4vw, 2.25rem);
+  --sl-text-h2: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+/* Dark mode only — override light mode variables too */
+[data-theme='light'] {
+  --sl-color-accent-low: #1e293b;
+  --sl-color-accent: #3b82f6;
+  --sl-color-accent-high: #60a5fa;
+  --sl-color-white: #f1f5f9;
+  --sl-color-gray-1: #94a3b8;
+  --sl-color-gray-2: #64748b;
+  --sl-color-gray-3: #475569;
+  --sl-color-gray-4: #334155;
+  --sl-color-gray-5: #1e293b;
+  --sl-color-gray-6: #0f172a;
+  --sl-color-black: #020617;
+  --sl-color-bg-nav: #0b1120;
+  --sl-color-bg-sidebar: #0b1120;
+}

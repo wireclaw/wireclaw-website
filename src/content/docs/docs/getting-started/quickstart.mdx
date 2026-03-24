@@ -1,0 +1,102 @@
+---
+title: "Quick Start"
+description: "Deploy your first AI agent in under 5 minutes."
+---
+
+import { Steps, Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+Deploy a research agent on Telegram that searches the web and remembers everything — in under 5 minutes.
+
+## Prerequisites
+
+- A [Wireclaw account](https://app.wireclaw.ai) (free, no credit card)
+- A Telegram account
+
+That's it.
+
+## Create your agent
+
+<Steps>
+
+1. **Open the Dashboard**
+
+   Go to [app.wireclaw.ai](https://app.wireclaw.ai) and sign in.
+
+2. **Create a new agent**
+
+   Click **New Agent** → select the **Research Bot** template.
+
+3. **Configure the basics**
+
+   Set a name, pick a model, and review the pre-selected tools:
+
+   ```toml
+   [agent]
+   name = "my-first-agent"
+   model = "claude-sonnet-4-5"
+
+   [agent.personality]
+   role = "Research Assistant"
+   instruction = "You help users research topics by browsing the web and summarizing findings."
+
+   [tools]
+   enabled = ["web_search", "browser", "pdf_read"]
+
+   [memory]
+   backend = "persistent"
+   ttl = "30d"
+
+   [cost_limits]
+   daily_usd = 5.00
+   ```
+
+   <Aside type="tip">The `$2 welcome bonus` covers your first few conversations. No credit card needed to start.</Aside>
+
+</Steps>
+
+## Connect Telegram
+
+<Steps>
+
+1. **Create a bot with BotFather**
+
+   Open [@BotFather](https://t.me/botfather) in Telegram, send `/newbot`, and follow the prompts. Copy the bot token.
+
+2. **Add the token**
+
+   In the Wireclaw Dashboard → **Channels** → **Add Telegram** → paste your bot token.
+
+3. **Verify connection**
+
+   A green checkmark means your bot is connected.
+
+</Steps>
+
+## Deploy
+
+Click **Deploy** in the Dashboard. Wait for the status indicator to turn green — your agent is live.
+
+```bash
+$ wireclaw status my-first-agent
+Agent: my-first-agent
+Status: Running
+Channel: Telegram (@your_research_bot)
+Uptime: 2m 14s
+```
+
+## Test it
+
+Open your bot in Telegram and send a message:
+
+> "Find recent papers on RLHF and summarize the key findings"
+
+Watch the agent use `web_search` and `browser` tools to research and respond with a summary.
+
+<Aside type="note">The first response may take 5–10 seconds (cold start). Subsequent messages are faster.</Aside>
+
+## What's next
+
+- [Connect Discord](/docs/guides/connect-discord) or [Slack](/docs/guides/connect-slack)
+- [Agent Config reference](/docs/reference/agent-config) — all configuration options
+- [Built-in tools](/docs/reference/built-in-tools) — 30+ tools your agent can use
+- [Billing & cost limits](/docs/reference/billing) — understand pay-as-you-go pricing

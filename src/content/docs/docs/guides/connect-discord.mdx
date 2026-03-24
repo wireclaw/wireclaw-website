@@ -1,0 +1,80 @@
+---
+title: "Connect Discord"
+description: "Connect your Wireclaw agent to a Discord server."
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+
+Connect your agent to Discord so it can respond in your server channels.
+
+## Prerequisites
+
+- A Wireclaw agent ([create one](/docs/getting-started/quickstart) if you haven't)
+- A Discord account with **Manage Server** permission on the target server
+
+## Setup
+
+<Steps>
+
+1. **Create a Discord application**
+
+   Go to the [Discord Developer Portal](https://discord.com/developers/applications) → **New Application**.
+
+   Name it (e.g., "Wireclaw Research Bot") and click **Create**.
+
+2. **Create a bot user**
+
+   In your application → **Bot** tab → **Add Bot**.
+
+   Under **Privileged Gateway Intents**, enable:
+   - **Message Content Intent** (required for reading messages)
+
+   Click **Reset Token** and copy the bot token.
+
+3. **Invite the bot to your server**
+
+   Go to **OAuth2** → **URL Generator**.
+
+   Select scopes: `bot`, `applications.commands`
+
+   Select bot permissions: `Send Messages`, `Read Message History`, `Embed Links`
+
+   Copy the generated URL and open it in your browser to invite the bot.
+
+4. **Add the token in Wireclaw**
+
+   Go to **Dashboard → Your Agent → Channels → Add Discord**.
+
+   Paste the bot token and click **Connect**.
+
+   ```toml
+   [channels.discord]
+   token = "YOUR_DISCORD_BOT_TOKEN"
+   guild_id = "123456789012345678"  # Optional: restrict to one server
+   ```
+
+   <Aside type="tip">Find your `guild_id` by enabling Developer Mode in Discord (Settings → Advanced), then right-click your server → Copy Server ID.</Aside>
+
+5. **Verify the connection**
+
+   Green checkmark = connected. The bot should appear online in your server.
+
+</Steps>
+
+## Test it
+
+Mention your bot or send a message in a channel it has access to. The agent responds inline.
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Bot appears offline | Check agent status is "Running" in Dashboard |
+| "Missing Access" error | Ensure bot has `Send Messages` permission in the channel |
+| Bot doesn't read messages | Enable **Message Content Intent** in Developer Portal → Bot tab |
+
+## Next steps
+
+- [Connect Telegram](/docs/guides/connect-telegram) — add another channel
+- [Connect Slack](/docs/guides/connect-slack) — add Slack
+- [Agent Config reference](/docs/reference/agent-config) — all configuration options

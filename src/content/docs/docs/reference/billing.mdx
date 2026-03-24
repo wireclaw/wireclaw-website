@@ -1,0 +1,77 @@
+---
+title: "Billing & Cost Limits"
+description: "Understand Wireclaw's pay-as-you-go pricing, balance management, and cost controls."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Wireclaw uses a **balance-based, pay-as-you-go** model. No subscription tiers — all features are available to all users.
+
+## How it works
+
+1. **Top up** your balance via Stripe (any USD amount)
+2. **Agents run** and consume tokens from LLM providers
+3. **Costs deduct** from your balance after each session with a 20% platform margin
+4. **Balance hits zero** → agent sessions pause until you top up
+
+<Aside type="tip">New accounts receive a **$2 welcome bonus** — enough for several conversations to test the platform.</Aside>
+
+## Cost tracking
+
+Costs are tracked per session in real-time. After each agent session (dehydration), the total token cost plus margin is deducted atomically from your balance.
+
+```
+session_cost = provider_token_cost × 1.20
+```
+
+Your balance and transaction history are visible in the Dashboard in real-time.
+
+## Cost limits
+
+Set a daily spend cap in your agent config to prevent runaway costs:
+
+```toml
+[cost_limits]
+daily_usd = 5.00
+```
+
+When the daily limit is reached, the agent pauses until the next day.
+
+<Aside type="caution">If you don't set `daily_usd`, there's no daily cap — the agent can spend your entire balance in one session. We recommend always setting a limit.</Aside>
+
+## Balance enforcement
+
+| Balance state | What happens |
+|---------------|-------------|
+| Balance > $0 | Agent sessions run normally |
+| Balance = $0 | New sessions blocked (HTTP 402). UI access and config changes still work. |
+| Balance < $0 | Not possible — balance check is fail-closed before each session |
+
+## Top up
+
+Go to **Dashboard → Billing → Add Funds**. Payments are processed via Stripe. You can top up any amount in USD.
+
+Stripe Customer Portal is available for managing payment methods and viewing receipts.
+
+## Transaction types
+
+| Type | Description |
+|------|-------------|
+| `deposit` | Balance top-up via Stripe |
+| `welcome_bonus` | $2 credit on account creation |
+| `session_deduction` | Cost deducted after agent session |
+| `refund` | Manual refund (contact support) |
+
+## What counts as cost
+
+Only **LLM token usage** is billed. The following are free:
+
+- Agent creation and configuration
+- Channel connections
+- Tool execution (web search, browser, shell)
+- Memory storage and retrieval
+- Idle agents (agents are free when not processing messages)
+
+## Pricing transparency
+
+The platform margin (20%) is applied uniformly. Provider token pricing is based on standard published rates. Detailed cost breakdowns per session are available in the Dashboard.

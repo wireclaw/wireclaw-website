@@ -1,0 +1,127 @@
+---
+title: "Built-in Tools"
+description: "Reference for all 30+ built-in tools available to Wireclaw agents."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Wireclaw agents have access to 30+ built-in tools across 8 categories. Enable them in your agent config:
+
+```toml
+[tools]
+enabled = ["web_search", "browser", "shell", "file_read", "file_write"]
+```
+
+## Web tools
+
+| Tool | Description |
+|------|-------------|
+| `web_search` | Search the web via DuckDuckGo or Brave. Returns titles, URLs, and snippets. |
+| `web_fetch` | Fetch a URL and convert HTML to Markdown. Useful for reading articles, docs, pages. |
+| `http_request` | Make raw HTTP requests (GET, POST, PUT, DELETE). For APIs, webhooks, external services. |
+
+```toml
+[tools.web_fetch]
+domain_allowlist = ["docs.example.com", "*.github.com"]
+
+[tools.http_request]
+domain_allowlist = ["api.example.com"]
+```
+
+<Aside type="tip">Domain allowlists restrict which URLs the agent can access. If not set, the agent can access any domain.</Aside>
+
+## Browser automation
+
+| Tool | Description |
+|------|-------------|
+| `browser` | Full browser automation via Playwright — screenshot, click, fill, navigate, evaluate JavaScript. |
+
+The browser tool gives agents a real browser for interacting with dynamic web pages, filling forms, and capturing screenshots.
+
+```toml
+[tools.browser]
+domain_allowlist = ["*.wikipedia.org", "arxiv.org"]
+```
+
+<Aside type="note">Browser requires Playwright binary pre-installed in the runtime environment. Wireclaw cloud includes it by default.</Aside>
+
+## File operations
+
+| Tool | Description |
+|------|-------------|
+| `file_read` | Read files from the agent's workspace. |
+| `file_write` | Write or create files in the workspace. |
+| `file_edit` | Edit existing files with search-and-replace operations. |
+| `glob_search` | Find files by glob pattern (e.g., `**/*.md`). |
+| `content_search` | Search file contents with regex patterns. |
+
+File operations are scoped to the agent's workspace directory — agents cannot access files outside their workspace.
+
+## Shell commands
+
+| Tool | Description |
+|------|-------------|
+| `shell` | Execute shell commands in a sandboxed environment. |
+
+```toml
+[tools.shell]
+sandbox = "landlock"      # Options: landlock, bubblewrap, firejail, docker
+timeout_secs = 30
+domain_allowlist = ["api.github.com"]  # Network access restrictions
+```
+
+**Sandbox backends:**
+
+| Backend | OS | Isolation |
+|---------|-----|-----------|
+| `landlock` | Linux 5.13+ | Filesystem access control |
+| `bubblewrap` | Linux | Container-like isolation |
+| `firejail` | Linux | Security sandbox |
+| `docker` | Any | Full container isolation |
+
+## Memory tools
+
+| Tool | Description |
+|------|-------------|
+| `memory_store` | Store a key-value pair in persistent memory. |
+| `memory_recall` | Retrieve stored memory by key or semantic search. |
+| `memory_forget` | Delete a memory entry. |
+
+Memory persists across sessions and restarts. See the `[memory]` section in [Agent Config](/docs/reference/agent-config).
+
+## Scheduling
+
+| Tool | Description |
+|------|-------------|
+| `cron` | Create, list, update, remove, and run scheduled tasks. |
+| `schedule` | Schedule a one-time future action. |
+
+Agents can schedule recurring tasks (e.g., "check this URL every hour") or delayed actions.
+
+## Data processing
+
+| Tool | Description |
+|------|-------------|
+| `pdf_read` | Extract text and structure from PDF files. |
+
+## Other tools
+
+| Tool | Description |
+|------|-------------|
+| `delegate` | Call another agent to handle a subtask. |
+| `pushover` | Send push notifications via Pushover. |
+
+## Autonomy levels
+
+Control how much oversight tools require:
+
+| Level | Behavior |
+|-------|----------|
+| `autonomous` | Tools execute without approval (default). |
+| `guided` | Tools execute but all actions are logged. |
+| `supervised` | Tools require explicit user approval before execution. |
+
+```toml
+[tools]
+autonomy = "supervised"  # Require approval for all tool actions
+```

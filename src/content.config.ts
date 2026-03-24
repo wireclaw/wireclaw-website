@@ -1,4 +1,6 @@
 import { defineCollection } from 'astro:content';
+import { docsLoader } from '@astrojs/starlight/loaders';
+import { docsSchema } from '@astrojs/starlight/schema';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
@@ -12,13 +14,8 @@ const blogSeries = z.enum([
 ]);
 
 const docs = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/docs' }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    category: z.string(),
-    order: z.number(),
-  }),
+  loader: docsLoader(),
+  schema: docsSchema(),
 });
 
 const blog = defineCollection({
