@@ -18,7 +18,7 @@ Sign up at [app.wireclaw.ai](https://app.wireclaw.ai). You'll get a **$2 welcome
 From the dashboard, create a new agent configuration:
 
 - **Name** — give your agent a descriptive name
-- **Model** — choose any supported LLM (Claude, GPT, Gemini, Llama, and more)
+- **Model** — choose any supported LLM (Claude, GPT, Gemini, DeepSeek, Llama, Mistral, Grok, and more)
 - **Channels** — connect one or more messaging channels (Telegram, Discord, Slack, etc.)
 - **Instructions** — write a system prompt that defines your agent's personality and behavior
 - **Tools** — enable built-in tools like web search, browser, HTTP requests, and file I/O

@@ -18,7 +18,7 @@ const useCases = [
     title: "Support Agent",
     description: "Answers customer questions using your docs and knowledge base",
     config: {
-      model: "gemini-3-flash",
+      model: "grok-3-mini",
       channels: ["telegram", "discord"],
       tools: ["web_fetch", "mcp:docs-db"],
     },
@@ -32,7 +32,7 @@ const useCases = [
     title: "DevOps Agent",
     description: "Monitors GitHub issues, runs diagnostics, updates the team",
     config: {
-      model: "claude-opus-4-6",
+      model: "deepseek-r1",
       channels: ["github", "slack"],
       tools: ["shell", "http_request", "browser"],
     },
@@ -46,7 +46,7 @@ const useCases = [
     title: "Sales Assistant",
     description: "Qualifies leads and answers product questions across channels",
     config: {
-      model: "claude-sonnet-4-5",
+      model: "gemini-2.5-flash",
       channels: ["whatsapp", "telegram", "email"],
       tools: ["web_fetch", "mcp:crm"],
     },
@@ -60,7 +60,7 @@ const useCases = [
     title: "Content Monitor",
     description: "Watches social media and news for brand mentions",
     config: {
-      model: "gemini-3-flash",
+      model: "mistral-large",
       channels: ["slack", "discord"],
       tools: ["web_search", "browser", "http_request"],
     },

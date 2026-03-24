@@ -45,7 +45,7 @@
             { name: "Signal", letter: "Si", color: "text-blue-400" },
             { name: "Email", letter: "E", color: "text-violet-400" },
             { name: "GitHub", letter: "G", color: "text-gray-400" },
-            { name: "MQTT", letter: "Mq", color: "text-amber-400" },
+            { name: "AMQP", letter: "Am", color: "text-orange-400" },
           ].map((ch) => (
             <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/[0.03] border border-white/5 text-xs font-mono">
               <span class={`font-semibold ${ch.color}`}>{ch.letter}</span>
@@ -151,14 +151,17 @@
         </div>
         <h3 class="font-display font-semibold text-lg mb-2.5">Any model, one switch</h3>
         <p class="text-sm text-text-secondary leading-relaxed mb-5">
-          Claude, GPT, Gemini, Llama &mdash; pick the best model for the job. Switch anytime, no code changes.
+          Claude, GPT, Gemini, DeepSeek, Llama, Mistral, Grok &mdash; pick the best model for the job. Switch anytime, no code changes.
         </p>
         <div class="flex flex-wrap gap-2 text-xs font-mono">
           {[
             { name: "Claude", color: "text-violet-400 bg-violet-500/10 border-violet-500/15" },
             { name: "GPT", color: "text-green-400 bg-green-500/10 border-green-500/15" },
             { name: "Gemini", color: "text-blue-400 bg-blue-500/10 border-blue-500/15" },
+            { name: "DeepSeek", color: "text-cyan-400 bg-cyan-500/10 border-cyan-500/15" },
             { name: "Llama", color: "text-purple-400 bg-purple-500/10 border-purple-500/15" },
+            { name: "Mistral", color: "text-orange-400 bg-orange-500/10 border-orange-500/15" },
+            { name: "Grok", color: "text-rose-400 bg-rose-500/10 border-rose-500/15" },
           ].map((model) => (
             <span class={`px-2.5 py-1.5 rounded-lg border ${model.color}`}>
               {model.name}

@@ -15,7 +15,7 @@ Wireclaw is an autonomous AI agent platform. You configure agents through a web 
 
 An agent is the central unit. Each agent has:
 
-- **Model** — the LLM powering its reasoning (Claude, GPT, Gemini, Llama, etc.)
+- **Model** — the LLM powering its reasoning (Claude, GPT, Gemini, DeepSeek, Llama, Mistral, Grok, etc.)
 - **Instructions** — system prompts that define personality, goals, and constraints
 - **Tools** — capabilities like web search, browser automation, HTTP requests, and file I/O
 - **Channels** — messaging platforms where the agent communicates (Telegram, Discord, Slack, and more)
