@@ -6,7 +6,7 @@ const useCases = [
     config: {
       model: "claude-sonnet-4-5",
       channels: ["slack", "email"],
-      tools: ["web_search", "browser", "pdf_read"],
+      tools: ["web_search", "browser", "file_read"],
     },
     interaction: [
       { role: "agent", text: "Found 12 new papers on RLHF from the last 7 days." },
@@ -52,7 +52,7 @@ const useCases = [
     },
     interaction: [
       { role: "user", text: "What's your pricing for a team of 20?" },
-      { role: "agent", text: "We're pay-as-you-go — no per-seat fees. Your team of 20 would share agent resources. Typical teams this size spend $30–80/month." },
+      { role: "agent", text: "We're pay-as-you-go — no per-seat fees. Your team of 20 would share agent resources, and you only pay for compute." },
       { role: "agent", text: "Want me to set up a quick demo call with the team?" },
     ],
   },
