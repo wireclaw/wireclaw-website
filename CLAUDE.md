@@ -15,8 +15,10 @@ Marketing website, blog, and documentation. Astro 6 + Tailwind CSS 4 + TypeScrip
 ## Structure
 
 ```
-src/pages/         Pages (index.astro — landing)
-src/components/    Astro components (Hero, Features, Pricing, Comparison, etc.)
+src/pages/         Pages (index.astro — landing, blog/, privacy, terms, OG generators)
+src/components/    Astro components (Hero, Features, Pricing, Comparison, etc.) + starlight overrides
+src/content/blog/  Blog posts (Markdown/MDX content collections)
+src/content/docs/  Documentation (Starlight): quickstart, guides, reference
 src/layouts/       Layout.astro (SEO meta, OG tags, structured data, scroll animations)
 src/styles/        global.css — Tailwind theme with brand tokens
 public/            Static assets
@@ -67,3 +69,4 @@ Glow: `box-shadow: 0 0 20px rgba(59, 130, 246, 0.3)`
 - **wireclaw-marketing-strategy** — messaging, brand, SEO keywords → site copy
 - **wireclaw-product** — feature specs → feature descriptions, pricing
 - **wireclaw-blog-strategy** — blog series → blog section
+- **wireclaw-documentation-strategy** — docs IA, page format, code example standards → Starlight docs
