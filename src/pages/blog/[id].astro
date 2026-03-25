@@ -154,9 +154,54 @@ const siteUrl = "https://wireclaw.ai";
           await navigator.clipboard.writeText(code.innerText);
           button.textContent = 'Copied!';
           setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+
+          window.posthog?.capture('code_copied', {
+            post_id: window.location.pathname.replace('/blog/', ''),
+            language: code.className?.match(/language-(\w+)/)?.[1] || 'unknown',
+          });
         }
       });
       pre.appendChild(button);
+    });
+  </script>
+
+  <!-- Blog engagement tracking -->
+  <script>
+    const postId = window.location.pathname.replace('/blog/', '');
+    const startTime = Date.now();
+    const firedDepths = new Set<number>();
+
+    // Scroll depth milestones
+    const article = document.querySelector('article');
+    if (article) {
+      window.addEventListener('scroll', () => {
+        const rect = article.getBoundingClientRect();
+        const articleHeight = rect.height;
+        const scrolled = window.scrollY - article.offsetTop + window.innerHeight;
+        const pct = Math.min(100, Math.max(0, Math.round((scrolled / articleHeight) * 100)));
+
+        for (const milestone of [25, 50, 75, 100]) {
+          if (pct >= milestone && !firedDepths.has(milestone)) {
+            firedDepths.add(milestone);
+            window.posthog?.capture('blog_scroll_depth', {
+              post_id: postId,
+              depth: milestone,
+            });
+          }
+        }
+      }, { passive: true });
+    }
+
+    // Reading time on page leave
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        const seconds = Math.round((Date.now() - startTime) / 1000);
+        window.posthog?.capture('blog_post_read', {
+          post_id: postId,
+          time_on_page_seconds: seconds,
+          max_scroll_depth: Math.max(0, ...firedDepths),
+        });
+      }
     });
   </script>
 </Layout>

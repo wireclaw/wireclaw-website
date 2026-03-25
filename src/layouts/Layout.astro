@@ -101,9 +101,9 @@ const structuredData = articleMeta
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
     <!-- PostHog Analytics -->
-    <script>
+    <script is:inline>
       !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-      posthog.init('YOUR_POSTHOG_PROJECT_API_KEY', {
+      posthog.init('phc_dvOf5ly5oLw3cMlYGNtt5bryir8xbsLejsHgd25053M', {
         api_host: 'https://us.i.posthog.com',
         person_profiles: 'identified_only',
       });
@@ -128,6 +128,92 @@ const structuredData = articleMeta
       document.querySelectorAll("[data-animate]").forEach((el) => {
         observer.observe(el);
       });
+    </script>
+
+    <!-- PostHog Event Tracking -->
+    <script>
+      // --- CTA click tracking ---
+      // Track all links pointing to app.wireclaw.ai
+      document.querySelectorAll('a[href*="app.wireclaw.ai"]').forEach((link) => {
+        link.addEventListener("click", () => {
+          const section = link.closest("section, nav, footer");
+          const sectionId =
+            section?.id ||
+            section?.tagName.toLowerCase() ||
+            "unknown";
+
+          // Determine CTA variant from text content
+          const text = link.textContent?.trim() || "";
+          let variant = "get_started";
+          if (/sign\s*in/i.test(text)) variant = "sign_in";
+
+          window.posthog?.capture("cta_clicked", {
+            location: sectionId,
+            variant,
+            text,
+          });
+        });
+      });
+
+      // --- Section view tracking ---
+      const sectionIds = [
+        "features",
+        "channels",
+        "demo",
+        "pricing",
+      ];
+      const viewedSections = new Set<string>();
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.id;
+              if (id && !viewedSections.has(id)) {
+                viewedSections.add(id);
+                window.posthog?.capture("section_viewed", { section: id });
+              }
+            }
+          });
+        },
+        { threshold: 0.3 },
+      );
+
+      sectionIds.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) sectionObserver.observe(el);
+      });
+
+      // --- FAQ expand tracking ---
+      document.querySelectorAll("details").forEach((detail) => {
+        detail.addEventListener("toggle", () => {
+          if (detail.open) {
+            const question =
+              detail.querySelector("summary")?.textContent?.trim() || "";
+            window.posthog?.capture("faq_expanded", { question });
+          }
+        });
+      });
+
+      // --- Outbound link tracking ---
+      document
+        .querySelectorAll('a[href^="https://"]')
+        .forEach((link) => {
+          const href = (link as HTMLAnchorElement).href;
+          // Skip app.wireclaw.ai (tracked as CTA) and PostHog/fonts
+          if (
+            href.includes("app.wireclaw.ai") ||
+            href.includes("posthog.com") ||
+            href.includes("googleapis.com") ||
+            href.includes("gstatic.com")
+          )
+            return;
+          link.addEventListener("click", () => {
+            window.posthog?.capture("outbound_link_clicked", {
+              url: href,
+              text: link.textContent?.trim() || "",
+            });
+          });
+        });
     </script>
 
     <style is:global>

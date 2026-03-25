@@ -62,6 +62,12 @@ const { compact = false } = Astro.props;
         msg.textContent = 'Thanks! You\'ll hear from us soon.';
         msg.classList.remove('hidden', 'text-red-400');
         msg.classList.add('text-green-400');
+
+        const page = window.location.pathname;
+        window.posthog?.capture('newsletter_submitted', {
+          location: page.startsWith('/blog/') ? 'blog_post' : page === '/blog' ? 'blog_index' : 'other',
+        });
+
         formEl.reset();
       } catch {
         msg.textContent = 'Something went wrong. Try again.';
