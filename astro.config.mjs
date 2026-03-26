@@ -10,6 +10,10 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'Wireclaw Docs',
+      head: [
+        { tag: 'script', attrs: { async: true, src: 'https://www.googletagmanager.com/gtag/js?id=G-D81XP2LX7T' } },
+        { tag: 'script', content: "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-D81XP2LX7T');" },
+      ],
       components: {
         SiteTitle: './src/components/starlight/SiteTitle.astro',
         Sidebar: './src/components/starlight/Sidebar.astro',
