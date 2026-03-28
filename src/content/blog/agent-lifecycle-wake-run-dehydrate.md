@@ -13,6 +13,8 @@ Running one AI agent is easy. Running a hundred — each with persistent memory,
 
 We built a lifecycle system that makes agents free when they're not working and fully operational within seconds when they are. Here's how it works.
 
+This matters if you're deploying agents at scale — whether that's 10 agents for different clients, 5 agents monitoring different competitors, or a swarm of support agents across channels. Wake-on-demand means you pay only when agents work. No idle compute, no per-agent fees.
+
 ## The Problem
 
 Autonomous AI agents aren't request-response services. They maintain state: memory, files, configurations, conversation history. A research agent accumulates a knowledge base. A support agent builds a database of resolved issues. A monitoring agent keeps logs of every anomaly it's flagged.
@@ -154,6 +156,7 @@ The lifecycle system is running in production. Here's what we're seeing:
 - **Hot path:** Sub-second — message goes directly to the running agent, no wake needed
 - **Dehydration:** 1-2 seconds for workspace upload
 - **Cost efficiency:** Agents consume compute only when active. 100 idle agents = 0 additional cost
+- **Builder economics:** A freelancer deploying 20 agents for different clients pays only for the agents actively processing messages. Idle agents between client interactions cost nothing.
 - **Reliability:** Stateless components restart cleanly. Workspace persistence survives pod migrations, restarts, and deploys. Heartbeat-based session management prevents split-brain
 - **Memory preservation:** Workspace survives across sessions. An agent's MEMORY.md from last week is fully intact when it wakes today
 
@@ -165,4 +168,4 @@ We're also exploring per-instance workspaces with deduplication, so multiple age
 
 ---
 
-Want to see the lifecycle in action? [Deploy your first agent](/blog/deploy-telegram-research-agent) — it takes under 5 minutes. Or read about [Sulaert: routing LLM requests across 10+ providers](/blog) for another look under the hood.
+Want to see the lifecycle in action? [Deploy your first agent](/blog/deploy-telegram-research-agent) — it takes 5 minutes, free, no credit card. Or read about [how persistent memory transforms agents from stateless chatbots into long-running teammates](/blog/building-autonomous-agents).

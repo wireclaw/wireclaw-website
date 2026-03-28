@@ -39,7 +39,7 @@ The workspace isn't just memory — it's the agent's entire persistent identity.
 
 ## Why This Matters
 
-Consider a support agent that handles customer questions across Telegram and Discord. Without persistent memory, every interaction starts cold. The agent asks the same clarifying questions, forgets previous resolutions, and can't learn from patterns.
+Consider a solopreneur running a SaaS product. They're spending 2 hours a day answering the same support questions across Telegram and Discord. Without persistent memory, every interaction starts cold — the agent asks the same clarifying questions, forgets previous resolutions, can't learn from patterns.
 
 With persistent memory, that same agent:
 
@@ -49,6 +49,8 @@ With persistent memory, that same agent:
 - Maintains context across channels — a conversation started on Telegram can be referenced from Discord
 
 This is the difference between a tool and a teammate.
+
+For freelancers, persistent memory unlocks a service model: deploy a support agent for each client, and each agent builds its own knowledge base specific to that client's product. One dashboard, isolated memory per client.
 
 ## Beyond Memory: Autonomous Tool Use
 
@@ -64,4 +66,4 @@ And through MCP (Model Context Protocol) servers, you can extend agents with cus
 
 ## Get Started
 
-Deploy an agent with persistent memory in minutes at [app.wireclaw.ai](https://app.wireclaw.ai).
+Deploy an agent with persistent memory in 5 minutes — free, no credit card. [app.wireclaw.ai](https://app.wireclaw.ai)

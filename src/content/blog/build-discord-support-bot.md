@@ -1,15 +1,17 @@
 ---
-title: "Build a Discord Support Bot with Docs Search"
+title: "Build a Discord Support Agent with Docs Search"
 description: "Deploy an AI support agent on Discord that searches your documentation, remembers past issues, and learns which answers work — using MCP and persistent memory."
 date: 2026-03-25
 author: Wireclaw Team
-tags: [tutorial, discord, support-bot, mcp]
+tags: [tutorial, discord, support-agent, mcp]
 series: build-this
 ---
 
-# Build a Discord Support Bot with Docs Search
+# Build a Discord Support Agent with Docs Search
 
 By the end of this tutorial, you'll have a support agent running on Discord that searches your documentation to answer questions, remembers past issues, and builds a knowledge base over time — no scripted flows, no decision trees, just an autonomous agent with access to your docs.
+
+If you're a freelancer, this is the kind of agent you can deploy for clients — each client gets their own support agent with isolated memory and per-client cost controls.
 
 ## Prerequisites
 
@@ -28,7 +30,7 @@ By the end of this tutorial, you'll have a support agent running on Discord that
 
 ## Step 1: Configure Your Agent
 
-Create a new Agent Config in the Wireclaw dashboard. Name it `support-bot`.
+Create a new Agent Config in the Wireclaw dashboard. Name it `support-agent`.
 
 **Model:** Select `claude-sonnet-4-5`. For high-volume support, you might later switch to `gemini-2.5-flash` for lower per-token cost — one dropdown change, no code changes.
 
@@ -120,15 +122,21 @@ Create a new **Channel** in the dashboard:
 - **Bot token:** Paste your Discord bot token
 - **Guild ID:** Your Discord server ID
 
+What the platform generates:
+
 ```toml
 [channels.discord]
 bot_token = "MTIz..."
 guild_id = "987654321098765432"
 ```
 
-Create an **Agent Instance** linking your `support-bot` config to the Discord channel.
+Create an **Agent Instance** linking your `support-agent` config to the Discord channel.
 
-Configure **memory** for persistent knowledge. In the config:
+Configure **memory** for persistent knowledge. In the dashboard, select **Lucid** as the memory backend in the **Memory** tab.
+
+The `lucid` backend combines SQLite (structured queries) with Markdown (human-readable logs). The agent gets both fast retrieval and a readable history of everything it has learned.
+
+Under the hood, the platform generates this configuration (you never edit this directly):
 
 ```toml
 default_model = "claude-sonnet-4-5"
@@ -137,20 +145,18 @@ default_model = "claude-sonnet-4-5"
 backend = "lucid"
 ```
 
-The `lucid` backend combines SQLite (structured queries) with Markdown (human-readable logs). The agent gets both fast retrieval and a readable history of everything it has learned.
-
-Hit **Deploy**. Your support bot is live on Discord.
+Hit **Deploy**. Your support agent is live on Discord.
 
 Test it in your server:
 
 ```
-@support-bot How do I configure environment variables?
+@support-agent How do I configure environment variables?
 ```
 
 The agent searches your docs, finds the relevant page, and responds with the answer and a direct link. Ask a follow-up:
 
 ```
-@support-bot What's the difference between env vars set in config vs. the dashboard?
+@support-agent What's the difference between env vars set in config vs. the dashboard?
 ```
 
 It remembers the context and gives a focused comparison.

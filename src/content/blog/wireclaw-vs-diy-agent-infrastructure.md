@@ -13,7 +13,7 @@ series: versus
 
 ## TL;DR
 
-Building your own agent infrastructure gives you full control and zero external dependencies. Wireclaw gives you production-ready agents in minutes instead of months. If your core product IS the agent runtime, build it. If agents are a feature of your product — or you're a solo developer who wants working agents now — use a platform.
+Building your own agent infrastructure gives you full control and zero external dependencies. Wireclaw gives you production-ready agents in minutes instead of months. If your core product IS the agent runtime, build it. If agents are a feature of your product — or you're a solo developer who wants working agents now — use a platform. Solopreneurs replacing VAs, freelancers deploying agents for clients, indie hackers shipping side projects — if agents are a tool for your business, not the business itself, use a platform.
 
 ## What Each One Does
 
@@ -47,6 +47,10 @@ Building your own agent infrastructure gives you full control and zero external 
 **Cost efficiency at massive scale.** If you're running thousands of agents with predictable, high-utilization workloads, the per-token overhead of a managed platform may exceed the cost of operating your own infrastructure. At scale, the economics can flip — though you're still paying for the engineering team to maintain it.
 
 ## Where Wireclaw Is the Right Fit
+
+**You're replacing manual work with agents.** Solopreneurs doing $5K/month worth of support, monitoring, and research manually. An agent handles it 24/7 for pennies per task. No hiring, no managing, no time zones. Configure in the dashboard, deploy in minutes — your agent handles support while you focus on growth.
+
+**You deploy agents for clients.** Freelancers and agencies offering AI agents as a service. Each client gets their own agent with isolated memory and per-client budgets. One dashboard, not one infrastructure project per client. Turn agent deployment into recurring revenue.
 
 **You want agents shipping, not infrastructure work.** The infrastructure required to run production AI agents is substantial. Here's a partial list of what you'd build:
 
@@ -199,9 +203,11 @@ The AGENTS.md and model selection are the only things you write. Channel connect
 
 **Use Wireclaw when:**
 - You want agents in production now, not in 3 months
+- You're a solopreneur replacing manual work with AI agents that cost pennies and work 24/7
+- You're a freelancer deploying agents for clients without building infrastructure per client
 - You're building products that USE agents, not building agent infrastructure
 - You need multi-channel, multi-model agents without managing SDKs and APIs
-- You're a solo developer, small team, or startup where engineering time is your scarcest resource
+- You're a solopreneur, freelancer, indie hacker, or startup team where time is your scarcest resource
 - You want to iterate on agent behavior (what it does) without touching infrastructure (how it runs)
 
 The best infrastructure is the kind you don't have to think about. If the infrastructure isn't your product, it shouldn't be your problem.
